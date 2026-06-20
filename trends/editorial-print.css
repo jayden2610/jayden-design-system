@@ -1,0 +1,39 @@
+/* Editorial Print — Neo-Japandi Futurism / Illustration-First
+   Token variants for the Editorial Print trend. Apply one variant class on <html> or a wrapper.
+   Source: ui-design-2026 SKILL.md, Trend 7 (lines ~688-722)
+   Palette is a 2-ink system (non-negotiable): --accent never appears at full weight more than
+   twice per section. */
+
+/* Variant A — Terracotta Ukiyo (default — aged paper, warm terracotta, Neo Mirai energy) */
+.editorial-print-a {
+  --paper:    oklch(91% 0.028 82);   /* aged paper — saturated, not cream default */
+  --ink:      oklch(14% 0.006 80);   /* near-black with warm undertone */
+  --accent:   oklch(50% 0.18 34);    /* terracotta red */
+  --accent-2: oklch(72% 0.12 76);    /* warm gold — third ink, use sparingly */
+  --muted:    oklch(52% 0.020 72);   /* aged ink */
+}
+
+/* Variant B — Indigo Woodblock (cool — Japanese woodblock blue, Hokusai palette, cool ink on ivory)
+   Cool indigo as the primary ink instead of terracotta. References Hokusai's blue woodblock
+   prints — the "Great Wave" palette. Rare in web design, extremely saveable on Dribbble. Same
+   illustration system, completely different era. */
+.editorial-print-b {
+  --paper:    oklch(94% 0.012 240);  /* cool ivory — aged but blue-shifted */
+  --ink:      oklch(12% 0.012 250);  /* blue-black ink */
+  --accent:   oklch(38% 0.22 255);   /* deep prussian blue */
+  --accent-2: oklch(70% 0.14 255);   /* lighter wave blue — midground */
+  --muted:    oklch(50% 0.016 245);  /* faded blue ink */
+}
+
+/* Variant C — Night Market (dark editorial — lantern light on black, festival poster, ink-on-dark)
+   Dark paper variant. Deep warm-black bg as the "paper" — type and illustration are the light
+   source. References night festival posters and risograph dark editions. Rare aesthetic, strong
+   Dribbble saves. */
+.editorial-print-c {
+  --paper:    oklch(10% 0.012 50);   /* deep warm-black — the dark "paper" */
+  --ink:      oklch(94% 0.016 75);   /* warm white — type is the light */
+  --accent:   oklch(72% 0.22 55);    /* lantern amber-gold */
+  --accent-2: oklch(58% 0.18 32);    /* deep rust */
+  --muted:    oklch(55% 0.014 60);   /* aged amber — faded lantern */
+  /* Reduce headline weight to 700 on dark — 900 bleeds too heavy */
+}

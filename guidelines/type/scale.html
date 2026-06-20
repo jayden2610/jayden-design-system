@@ -1,0 +1,19 @@
+<!-- @dsCard group="Type" viewport="700x250" name="Type Scale" subtitle="Fluid display + heading clamps over a fixed body" -->
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-display);background:oklch(98% 0.003 90);color:oklch(12% 0.006 90);padding:18px 28px}
+  .r{display:flex;align-items:baseline;gap:18px;padding:5px 0;border-bottom:1px solid oklch(92% 0.005 90)}
+  .r:last-child{border:none}
+  .tok{font-family:var(--font-mono);font-size:10px;color:oklch(58% 0.01 90);width:130px;flex:none}
+  .spec{line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+</style></head><body>
+  <div class="r"><span class="tok">--type-display</span><span class="spec" style="font-size:46px;font-weight:600;letter-spacing:-.02em">Aa burns</span></div>
+  <div class="r"><span class="tok">--type-h1</span><span class="spec" style="font-size:34px;font-weight:600;letter-spacing:-.015em">Aa headline</span></div>
+  <div class="r"><span class="tok">--type-h2</span><span class="spec" style="font-size:26px;font-weight:600">Aa section title</span></div>
+  <div class="r"><span class="tok">--type-h3</span><span class="spec" style="font-size:20px;font-weight:600">Aa subsection heading</span></div>
+  <div class="r"><span class="tok">--type-lead</span><span class="spec" style="font-size:17px;font-weight:500;color:oklch(38% 0.008 90)">Aa lead paragraph intro</span></div>
+  <div class="r"><span class="tok">--type-body</span><span class="spec" style="font-size:15px;color:oklch(34% 0.008 90)">Aa body copy at reading size</span></div>
+  <div class="r"><span class="tok">--type-eyebrow</span><span class="spec" style="font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:oklch(58% 0.01 90)">Aa eyebrow label</span></div>
+</body></html>

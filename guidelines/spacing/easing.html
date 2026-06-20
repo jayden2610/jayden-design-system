@@ -1,0 +1,16 @@
+<!-- @dsCard group="Spacing" viewport="700x150" name="Motion — power3.out" subtitle="The dominant entrance ease; motion reveals, never decorates" -->
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-mono);background:oklch(13% 0.01 255);color:oklch(94% 0.004 255);padding:20px 26px;display:flex;align-items:center;gap:30px}
+  .track{flex:1;height:3px;background:oklch(24% 0.01 255);border-radius:2px;position:relative}
+  .dot{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;background:oklch(72% 0.17 160);transform:translateY(-50%);animation:run 2.4s var(--ease-out-power3) infinite}
+  @keyframes run{0%{left:0}55%{left:calc(100% - 18px)}100%{left:calc(100% - 18px);opacity:.25}}
+  .label{flex:none}
+  .label .t{font-size:13px;font-weight:600}
+  .label .v{font-size:10px;color:oklch(60% 0.008 255);margin-top:4px}
+</style></head><body>
+  <div class="label"><div class="t">--ease-out-power3</div><div class="v">cubic-bezier(0.16, 1, 0.3, 1)</div></div>
+  <div class="track"><div class="dot"></div></div>
+</body></html>

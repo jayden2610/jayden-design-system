@@ -1,0 +1,38 @@
+/* Spatial Presence — 3D Immersive WebGL
+   Token variants for the Spatial Presence trend. Apply one variant class on <html> or a wrapper.
+   Source: ui-design-2026 SKILL.md, Trend 1 (lines ~126-166) */
+
+/* Variant A — Electric Void (default — cold, infinite, machine precision) */
+.spatial-presence-a {
+  --bg:       oklch(9% 0.012 255);    /* deep blue-black */
+  --surface:  oklch(13% 0.014 255);
+  --accent-1: oklch(62% 0.20 255);    /* electric blue */
+  --accent-2: oklch(58% 0.18 295);    /* violet */
+  --text:     oklch(94% 0.004 255);
+  --muted:    oklch(50% 0.008 255);
+}
+
+/* Variant B — Solar Forge (warm — molten metal, industrial heat, sunrise over steel)
+   Warm foreground over cool space bg — elements feel lit from in front. Completely different
+   personality from the same geometry. */
+.spatial-presence-b {
+  --bg:       oklch(7% 0.010 30);     /* near-black with warm ember undertone */
+  --surface:  oklch(11% 0.014 30);
+  --accent-1: oklch(72% 0.22 55);     /* molten amber-orange */
+  --accent-2: oklch(65% 0.18 32);     /* deep copper */
+  --text:     oklch(95% 0.010 72);    /* warm white */
+  --muted:    oklch(52% 0.012 50);
+  /* Bloom should shift: UnrealBloomPass with warm tint — strength 0.9, threshold 0.25 */
+  /* Three-point lighting: amber key, cool steel fill, copper rim */
+}
+
+/* Variant C — Jade Terminal (cool green — organic precision, bioluminescent, Zaha Hadid meets nature)
+   Achromatic neutrals with a single high-chroma green accent. Feels like a living machine. */
+.spatial-presence-c {
+  --bg:       oklch(7% 0.008 165);    /* near-black with green undertone */
+  --surface:  oklch(11% 0.010 165);
+  --accent-1: oklch(74% 0.24 155);    /* bioluminescent jade */
+  --accent-2: oklch(55% 0.16 175);    /* deep teal */
+  --text:     oklch(93% 0.006 165);
+  --muted:    oklch(48% 0.010 165);
+}

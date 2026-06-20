@@ -1,0 +1,48 @@
+/* Liquid Glass — Glassmorphism / Apple Vision Pro Material
+   Token variants for the Liquid Glass trend. Apply one variant class on <html> or a wrapper.
+   Source: ui-design-2026 SKILL.md, Trend 2 (lines ~246-294) */
+
+/* Variant A — Morning Gold (default — confirmed working, warm cinematic, Jayden's taste) */
+.liquid-glass-a {
+  --bg-fallback:  oklch(15% 0.008 70);
+  --text:         oklch(92% 0.018 75);
+  --text-dark:    oklch(8% 0.012 70);
+  --glass:        rgba(255,255,255,0.18);
+  --glass-border: rgba(255,255,255,0.18);
+  --accent:       oklch(74% 0.12 72);    /* warm gold */
+  --accent-pale:  oklch(82% 0.07 72);
+  --accent-deep:  oklch(61% 0.09 72);
+  --muted:        oklch(92% 0.018 75 / 0.6);
+}
+
+/* Variant B — Midnight Indigo (cool — evening scene, deep focus, cinematic night)
+   Same glass spec, different scene temperature. Cool foreground over warm scene creates depth
+   tension — elements recede while space breathes forward. Pair with a deep twilight or
+   city-at-night video background. */
+.liquid-glass-b {
+  --bg-fallback:  oklch(10% 0.015 260);  /* deep blue-navy fallback */
+  --text:         oklch(94% 0.010 240);  /* cool near-white */
+  --text-dark:    oklch(8% 0.014 255);
+  --glass:        rgba(180,200,255,0.12); /* blue-tinted glass — matches cool scene */
+  --glass-border: rgba(180,200,255,0.16);
+  --accent:       oklch(72% 0.18 255);   /* electric blue */
+  --accent-pale:  oklch(82% 0.10 255);
+  --accent-deep:  oklch(52% 0.16 270);   /* deep indigo */
+  --muted:        oklch(94% 0.010 240 / 0.55);
+  /* Glass border tint: rgba(180,200,255,0.16) instead of white — feels icy, not plain */
+}
+
+/* Variant C — Rose Dusk (warm pink — golden hour, intimate, lifestyle/wellness brands)
+   Warm magenta-shifted accent against a sunset or warm interior scene. Unusual for glass UI —
+   the contrast makes it memorable on Dribbble. */
+.liquid-glass-c {
+  --bg-fallback:  oklch(14% 0.012 10);   /* warm near-black, red undertone */
+  --text:         oklch(96% 0.008 30);   /* warm white */
+  --text-dark:    oklch(9% 0.010 10);
+  --glass:        rgba(255,220,210,0.14); /* rose-tinted glass */
+  --glass-border: rgba(255,210,200,0.18);
+  --accent:       oklch(70% 0.18 20);    /* warm coral-rose */
+  --accent-pale:  oklch(84% 0.10 20);
+  --accent-deep:  oklch(52% 0.16 15);
+  --muted:        oklch(96% 0.008 30 / 0.55);
+}

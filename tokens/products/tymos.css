@@ -1,0 +1,69 @@
+/* Tymos — EXAMPLE product theme (not a core trend).
+   Tymos (jayden2610/tymos) is a real product — a warm, candle-lit Pomodoro timer — included
+   here as a worked EXAMPLE of the Jayden Design System's principles applied end-to-end
+   (radical color restraint, soft warm shadows, one floating glass panel, motion that reveals).
+
+   It is NOT a 10th trend and NOT the system's canonical brand. To USE the design system, pick
+   a trend-variant class (e.g. liquid-glass-a). Reach for class="tymos" only when recreating or
+   extending the Tymos example specifically. Every value below is lifted verbatim from the
+   production source (index.html / dashboard.html / about.html). */
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@400;500;600;700&display=swap");
+
+.tymos {
+  /* Surfaces — warm cream stack (light, airy, "morning light") */
+  --bg:         #f0e9dc;
+  --surface:    #ece4d5;
+  --surface-2:  #e4dac8;
+  --surface-3:  #d9cdb8;
+
+  /* Borders — warm brown at low alpha, never harsh */
+  --border:     rgba(120,95,65,0.14);
+  --border-2:   rgba(120,95,65,0.22);
+
+  /* Ink */
+  --text:       #2e1f0d;   /* near-black, warm */
+  --text-2:     #6b5340;   /* secondary */
+  --ink:        #2e1f0d;   /* alias for components reading --ink */
+  --muted:      #a08b75;
+
+  /* Accent — roasted brown, the single brand hue */
+  --accent:     #7c5c3a;
+  --accent-2:   #a07850;
+  --accent-3:   #c9a87a;
+  --accent-bg:  rgba(124,92,58,0.08);
+  --on-accent:  #f5ede0;   /* cream text on accent fills */
+
+  /* Semantic — muted earth tones, never neon */
+  --red:        #b84f3a;   /* high priority / destructive */
+  --green:      #4a8c5c;   /* done / success */
+  --blue:       #3a6b8c;   /* focus-time / info */
+  --yellow:     #b8903a;   /* medium priority / best */
+
+  /* Ring (timer) */
+  --ring-work:  #a07850;
+  --ring-break: #5a8ca0;
+
+  /* Shadows — warm, soft, low. Never cool gray. */
+  --shadow:     0 2px 12px rgba(80,50,20,0.10);
+  --shadow-2:   0 4px 24px rgba(80,50,20,0.14);
+
+  /* Type — the real pairing */
+  --font-serif:   'Lora', Georgia, serif;          /* logo, headings, titles */
+  --font-sans:    'Nunito', system-ui, sans-serif; /* body, UI, buttons */
+  --font-display: 'Lora', Georgia, serif;
+  --font-mono:    'DM Mono', ui-monospace, Menlo, monospace; /* numbers, eyebrows, labels */
+
+  /* Radii — soft, capped (cards 10-16, pills 100) */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-pill: 100px;
+
+  /* Motion */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */ /* bar grow, toggle thumb */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+
+  background: var(--bg);
+  color: var(--text);
+}

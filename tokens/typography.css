@@ -1,0 +1,72 @@
+/* Typography — ADDED LAYER (not in the source repo).
+   The source token files name type *pairings* in prose (General Sans, Neue Montreal,
+   Söhne-adjacent grotesques; editorial serifs; mono for eyebrows) but ship no @font-face
+   rules and no type-scale tokens. This file supplies them so components and specimens have
+   real type to consume.
+
+   FONT SUBSTITUTIONS (flagged — swap for licensed originals when available):
+     --font-display / --font-sans  → General Sans (Fontshare) — the guidelines' own
+                                       "practical default" grotesque. Stands in for
+                                       Neue Montreal / Söhne / General Sans family.
+     --font-serif                  → Newsreader (Google) — editorial serif with a true
+                                       italic, for Editorial Print + Narrative Motion.
+     --font-mono                   → JetBrains Mono (Google) — eyebrows, labels, metrics. */
+
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+/* General Sans (Fontshare) — inlined @font-face so the font is a first-class declared
+   webfont (compiler reads these src URLs). Served from Fontshare's official free CDN. */
+@font-face {
+  font-family: 'General Sans';
+  src: url('https://cdn.fontshare.com/wf/MFQT7HFGCR2L5ULQTW6YXYZXXHMPKLJ3/YWQ244D6TACUX5JBKATPOW5I5MGJ3G73/7YY3ZAAE3TRV2LANYOLXNHTPHLXVWTKH.woff2') format('woff2');
+  font-weight: 400; font-display: swap; font-style: normal;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('https://cdn.fontshare.com/wf/3RZHWSNONLLWJK3RLPEKUZOMM56GO4LJ/BPDRY7AHVI3MCDXXVXTQQ76H3UXA63S3/SB2OEB6IKZPRR6JT4GFJ2TFT6HBB6AZN.woff2') format('woff2');
+  font-weight: 500; font-display: swap; font-style: normal;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('https://cdn.fontshare.com/wf/K46YRH762FH3QJ25IQM3VAXAKCHEXXW4/ISLWQPUZHZF33LRIOTBMFOJL57GBGQ4B/3ZLMEXZEQPLTEPMHTQDAUXP5ZZXCZAEN.woff2') format('woff2');
+  font-weight: 600; font-display: swap; font-style: normal;
+}
+@font-face {
+  font-family: 'General Sans';
+  src: url('https://cdn.fontshare.com/wf/KWXO5X3YW4X7OLUMPO4X24HQJGJU7E2Q/VOWUQZS3YLP66ZHPTXAFSH6YACY4WJHT/NIQ54PVBBIWVK3PFSOIOUJSXIJ5WTNDP.woff2') format('woff2');
+  font-weight: 700; font-display: swap; font-style: normal;
+}
+
+:root {
+  /* Families */
+  --font-display: "General Sans", "Neue Montreal", "Söhne", system-ui, sans-serif;
+  --font-sans:    "General Sans", system-ui, -apple-system, sans-serif;
+  --font-serif:   "Newsreader", Georgia, "Times New Roman", serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Type scale — fluid display, fixed body. Each trend may override the display clamp. */
+  --type-display:  clamp(3rem, 8vw, 7rem);   /* hero — two-ink systems absorb the scale */
+  --type-h1:       clamp(2.25rem, 5vw, 4rem);
+  --type-h2:       clamp(1.75rem, 3.4vw, 2.75rem);
+  --type-h3:       clamp(1.35rem, 2.2vw, 1.75rem);
+  --type-lead:     clamp(1.125rem, 1.6vw, 1.375rem);
+  --type-body:     1rem;
+  --type-small:    0.875rem;
+  --type-eyebrow:  0.75rem;    /* mono, uppercase, wide tracking */
+
+  /* Weights */
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold:600;
+  --weight-bold:    700;
+
+  /* Line heights */
+  --leading-tight:  1.05;   /* display */
+  --leading-snug:   1.2;    /* headings */
+  --leading-normal: 1.6;    /* body */
+
+  /* Tracking */
+  --tracking-tight:  -0.02em;  /* large display */
+  --tracking-normal: 0;
+  --tracking-eyebrow: 0.22em;  /* mono eyebrows / labels */
+}

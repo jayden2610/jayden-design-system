@@ -1,0 +1,39 @@
+<!-- @dsCard group="Components" viewport="700x180" name="Badge" subtitle="DM-Mono status & priority pills — soft tint or solid fill across semantic tones." -->
+<!DOCTYPE html><html class="tymos"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-sans);background:var(--bg);color:var(--text);padding:22px 26px}
+  .grp{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .grp:last-child{margin-bottom:0}
+  .lab{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);width:64px;flex:none}
+</style></head><body>
+<div id="root"></div>
+<script type="text/babel">
+  const { Badge } = window.JaydenDesignSystem_8ad61a;
+  function Demo(){
+    return (
+      <React.Fragment>
+        <div className="grp"><span className="lab">Soft</span>
+          <Badge tone="high">high</Badge>
+          <Badge tone="medium">medium</Badge>
+          <Badge tone="low">low</Badge>
+          <Badge tone="accent">50m focus</Badge>
+          <Badge tone="info">synced</Badge>
+          <Badge tone="muted">local</Badge>
+        </div>
+        <div className="grp"><span className="lab">Solid</span>
+          <Badge tone="low" solid>done</Badge>
+          <Badge tone="accent" solid>3 🍅</Badge>
+          <Badge tone="high" solid>overdue</Badge>
+        </div>
+      </React.Fragment>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script>
+</body></html>
