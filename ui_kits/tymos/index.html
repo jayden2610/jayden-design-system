@@ -1,0 +1,197 @@
+<!-- @dsCard group="Tymos" viewport="1180x720" name="Tymos — Timer & Tasks" subtitle="Example product build: candle Pomodoro timer with task panel. Start/pause, add tasks, focus a task." -->
+<!DOCTYPE html>
+<html lang="en" class="tymos">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tymos — Timer</title>
+<link rel="icon" type="image/svg+xml" href="../../assets/tymos-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+<script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg); color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+  .app-frame { height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* HEADER */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 28px; background: var(--surface);
+    border-bottom: 1px solid var(--border-2); flex-shrink: 0;
+  }
+  .logo { font-family: 'Lora', serif; font-size: 17px; font-weight: 500; color: var(--accent); letter-spacing: 0.02em; }
+  .logo-sep { color: var(--border-2); margin: 0 6px; font-weight: 300; }
+  .logo-tag { font-family: 'DM Mono', monospace; font-weight: 400; opacity: 0.45; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .header-actions { display: flex; align-items: center; gap: 8px; }
+  .hbtn {
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700;
+    color: var(--text-2); background: transparent; border: 1px solid var(--border-2);
+    border-radius: 6px; padding: 5px 12px; cursor: pointer; transition: all 0.15s;
+  }
+  .hbtn:hover { background: var(--surface-2); color: var(--text); }
+  .hbtn i { font-size: 14px; }
+  .hbtn.signed { color: var(--accent); border-color: rgba(124,92,58,0.25); background: var(--accent-bg); }
+
+  /* MAIN SPLIT */
+  .main { flex: 1; min-height: 0; display: grid; grid-template-columns: 360px 4px 1fr; overflow: hidden; }
+  .divider { background: var(--border-2); }
+
+  /* TIMER PANEL */
+  .timer-panel {
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+    padding: 22px 20px; gap: 14px; background: var(--surface); overflow-y: auto; scrollbar-width: none;
+  }
+  .timer-panel::-webkit-scrollbar { display: none; }
+  .ring-wrap { position: relative; width: 180px; height: 180px; flex-shrink: 0; }
+  .ring-svg { width: 180px; height: 180px; transform: rotate(-90deg); }
+  .ring-track { fill: none; stroke: var(--surface-3); stroke-width: 4; }
+  .ring-fill { fill: none; stroke: var(--ring-work); stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset 1s linear, stroke 0.5s; }
+  body.break .ring-fill { stroke: var(--ring-break); }
+  .ring-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .timer-time { font-family: 'DM Mono', monospace; font-size: 46px; font-weight: 300; color: var(--text); letter-spacing: -2px; line-height: 1; }
+  .timer-sublabel { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+  .candle-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0; }
+  .candle-sublabel { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .flame { animation: cFlicker 1.9s ease-in-out infinite; transform-origin: center bottom; }
+  @keyframes cFlicker { 0%,100% { opacity: 1; } 28% { opacity: 0.72; } 60% { opacity: 0.85; } }
+
+  .controls { display: flex; gap: 10px; align-items: center; }
+  .btn {
+    font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 600;
+    border: 1px solid var(--border-2); background: transparent; color: var(--text-2);
+    cursor: pointer; border-radius: 8px; padding: 9px 18px; transition: all 0.15s;
+  }
+  .btn:hover { background: var(--surface-2); }
+  .btn:active { transform: scale(0.95); }
+  .btn-primary {
+    background: var(--accent); color: var(--on-accent); border-color: transparent;
+    padding: 9px 32px; font-size: 14px; box-shadow: 0 2px 8px rgba(124,92,58,0.25);
+  }
+  .btn-primary:hover { background: var(--accent-2); }
+  body.break .btn-primary { background: var(--ring-break); box-shadow: 0 2px 8px rgba(58,107,140,0.25); }
+
+  .quick-time-row {
+    display: flex; gap: 8px; align-items: center; justify-content: center;
+    padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; width: 100%;
+  }
+  .qte-group { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; }
+  .qte-label { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .qte-input { width: 100%; text-align: center; font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 400; color: var(--text); background: transparent; border: none; outline: none; padding: 2px 0; }
+  .qte-input:focus { color: var(--accent-2); }
+  .qte-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .qte-divider { width: 1px; height: 28px; background: var(--border-2); flex-shrink: 0; }
+
+  .stats-today-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; text-align: center; margin-top: 6px; }
+  .stats-today-label::after { content: ''; display: block; width: 40px; height: 1px; background: var(--border-2); margin: 3px auto 0; }
+  .stats-row { display: flex; gap: 6px; width: 100%; justify-content: center; flex-wrap: wrap; }
+  .stat-pill { display: flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 100px; background: var(--bg); border: 1px solid var(--border); }
+  .stat-pill-icon { font-size: 12px; line-height: 1; opacity: 0.75; }
+  .stat-val { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 400; color: var(--text); }
+  .stat-lbl { font-size: 11px; font-weight: 600; color: var(--muted); }
+
+  .spotify-connect {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 9px 16px; cursor: pointer; border: 1px solid var(--border-2);
+    background: var(--surface); width: 100%; border-radius: 10px; transition: all 0.18s;
+    box-shadow: 0 1px 4px rgba(80,50,20,0.07);
+  }
+  .spotify-connect:hover { background: var(--surface-2); border-color: rgba(29,185,84,0.35); }
+  .spotify-connect-label { font-size: 13px; font-weight: 700; color: var(--text-2); letter-spacing: 0.02em; }
+
+  /* TASK PANEL */
+  .task-panel {
+    display: flex; flex-direction: column; overflow: hidden;
+    background: rgba(240, 233, 220, 0.55);
+    backdrop-filter: blur(40px) saturate(1.4); -webkit-backdrop-filter: blur(40px) saturate(1.4);
+    border-left: 1px solid rgba(255,255,255,0.45);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), -8px 0 32px rgba(0,0,0,0.08);
+  }
+  .task-panel-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .panel-title { font-family: 'Lora', serif; font-size: 14px; font-weight: 500; color: var(--text); }
+  .add-task-btn {
+    display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
+    color: var(--accent); background: var(--accent-bg); border: 1px solid rgba(124,92,58,0.2);
+    border-radius: 6px; padding: 5px 12px; cursor: pointer; transition: all 0.15s; font-family: 'Nunito', sans-serif;
+  }
+  .add-task-btn:hover { background: rgba(124,92,58,0.15); }
+  .add-task-btn i { font-size: 14px; }
+
+  .task-list { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+  .task-list::-webkit-scrollbar { width: 4px; }
+  .task-list::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 4px; }
+
+  .quick-add-row {
+    background: var(--surface-2); border: 1.5px solid rgba(120,95,65,0.45); border-radius: 10px;
+    display: flex; align-items: center; gap: 10px; padding: 12px 14px; box-shadow: 0 1px 4px rgba(80,50,20,0.08);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .quick-add-row:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,92,58,0.12), 0 1px 4px rgba(80,50,20,0.08); }
+  .quick-add-row input { flex: 1; background: transparent; border: none; outline: none; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 600; color: var(--text); }
+  .quick-add-row input::placeholder { color: var(--text-2); font-weight: 500; }
+  .quick-add-hint { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: var(--accent); background: rgba(124,92,58,0.1); border-radius: 4px; padding: 2px 8px; }
+
+  .task-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.18s; overflow: hidden; box-shadow: var(--shadow); animation: fadeUp 0.3s ease both; }
+  .task-card:hover { border-color: var(--border-2); box-shadow: var(--shadow-2); }
+  .task-card.done { opacity: 0.5; }
+  .task-card.is-active-task { border-color: var(--accent-3); box-shadow: 0 0 0 2px rgba(201,168,122,0.25), var(--shadow-2); background: #f5efe3; }
+  .task-card.is-active-task .task-card-title { color: var(--accent); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .task-card-header { display: flex; align-items: flex-start; gap: 10px; padding: 13px 14px; }
+  .task-priority-bar { width: 3px; border-radius: 4px; flex-shrink: 0; align-self: stretch; min-height: 16px; }
+  .pri-high { background: var(--red); } .pri-medium { background: var(--yellow); } .pri-low { background: var(--green); }
+  .task-cb {
+    width: 16px; height: 16px; border: 1.5px solid var(--border-2); border-radius: 5px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 10px; color: transparent; margin-top: 1px; transition: all 0.15s;
+  }
+  .task-card.done .task-cb { background: var(--green); border-color: var(--green); color: #fff; }
+  .task-card-body { flex: 1; min-width: 0; }
+  .task-card-title { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3; }
+  .task-card.done .task-card-title { text-decoration: line-through; }
+  .task-card-meta { display: flex; align-items: center; gap: 8px; margin-top: 5px; flex-wrap: wrap; }
+  .task-badge { font-family: 'DM Mono', monospace; font-size: 10px; padding: 2px 7px; border-radius: 100px; letter-spacing: 0.05em; }
+  .badge-high { background: rgba(184,79,58,0.12); color: var(--red); }
+  .badge-medium { background: rgba(184,144,58,0.12); color: var(--yellow); }
+  .badge-low { background: rgba(74,140,92,0.12); color: var(--green); }
+  .task-focus-badge { font-family: 'DM Mono', monospace; font-size: 10px; padding: 2px 7px; border-radius: 100px; background: rgba(124,92,58,0.12); color: var(--accent); letter-spacing: 0.04em; }
+  .focus-tag-idle {
+    display: inline-flex; align-items: center; gap: 4px; font-family: 'DM Mono', monospace; font-size: 9px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border: 1px dashed var(--border-2);
+    border-radius: 100px; padding: 2px 8px; margin-top: 6px; cursor: pointer; transition: all 0.15s;
+  }
+  .focus-tag-idle:hover { border-color: var(--accent-3); color: var(--accent-2); background: var(--accent-bg); border-style: solid; }
+  .focus-tag-active { display: inline-flex; align-items: center; gap: 5px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-2); margin-top: 6px; }
+  .focus-tag-active::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent-2); animation: focusPulse 1.5s ease-in-out infinite; }
+  @keyframes focusPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+  .ghost-icon { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 6px; border: none; background: transparent; color: var(--muted); cursor: pointer; font-size: 16px; transition: all 0.15s; }
+  .ghost-icon:hover { background: rgba(120,100,70,0.12); color: var(--text); }
+  .ghost-icon.danger:hover { color: var(--red); background: rgba(184,79,58,0.08); }
+  .task-card-actions { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
+
+  /* NOTIFY */
+  .notif { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-20px); background: var(--accent); color: var(--on-accent); border-radius: 10px; padding: 11px 22px; font-size: 13px; font-weight: 600; box-shadow: 0 4px 16px rgba(80,50,20,0.22); transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), opacity 0.3s; z-index: 200; opacity: 0; pointer-events: none; }
+  .notif.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="Candle.jsx"></script>
+<script type="text/babel" src="TimerPanel.jsx"></script>
+<script type="text/babel" src="TaskPanel.jsx"></script>
+<script type="text/babel" src="App.jsx"></script>
+<script type="text/babel">
+  ReactDOM.createRoot(document.getElementById('root')).render(<window.TymosApp />);
+</script>
+</body>
+</html>

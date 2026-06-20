@@ -1,0 +1,17 @@
+<!-- @dsCard group="Spacing" viewport="700x180" name="Radius Scale" subtitle="sm 8 · md 16 · card-max 20 (hard ceiling) · full (pill only)" -->
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-mono);background:oklch(98% 0.003 90);color:oklch(20% 0.006 90);padding:22px 26px;display:flex;gap:26px;align-items:flex-end}
+  .col{display:flex;flex-direction:column;align-items:center;gap:9px}
+  .box{width:78px;height:62px;background:oklch(94% 0.006 255);border:1.5px solid oklch(52% 0.22 255)}
+  .tok{font-size:9px;color:oklch(55% 0.01 90);text-align:center;line-height:1.4}
+  .tok b{color:oklch(20% 0.006 90);font-size:11px}
+  .pill{width:104px;height:40px;border-radius:var(--radius-full);background:var(--accent,oklch(52% 0.22 255));display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:600}
+</style></head><body>
+  <div class="col"><div class="box" style="border-radius:var(--radius-sm)"></div><div class="tok"><b>8px</b><br>--radius-sm</div></div>
+  <div class="col"><div class="box" style="border-radius:var(--radius-md)"></div><div class="tok"><b>16px</b><br>--radius-md</div></div>
+  <div class="col"><div class="box" style="border-radius:var(--radius-card-max)"></div><div class="tok"><b>20px</b><br>--radius-card-max</div></div>
+  <div class="col bento-grid-a"><div class="pill">pill / tag / button</div><div class="tok"><b>999px</b><br>--radius-full</div></div>
+</body></html>

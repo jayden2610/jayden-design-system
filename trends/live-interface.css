@@ -1,0 +1,41 @@
+/* Live Interface — Embedded Interactive Product Preview
+   Token variants for the Live Interface trend. Apply one variant class on <html> or a wrapper.
+   Source: ui-design-2026 SKILL.md, Trend 5 (lines ~506-545) */
+
+/* Variant A — Dark Emerald (default — confident SaaS, Stripe/Linear energy) */
+.live-interface-a {
+  --bg:      oklch(10% 0.015 255);
+  --surface: oklch(14% 0.012 255);
+  --border:  oklch(20% 0.010 255);
+  --accent:  oklch(72% 0.17 160);   /* emerald */
+  --accent-2:oklch(62% 0.20 255);   /* blue */
+  --text:    oklch(97% 0.004 255);
+  --muted:   oklch(63% 0.008 255);
+}
+
+/* Variant B — Light Studio (light — clean, airy, Figma/Linear light mode, approachable SaaS)
+   Same layout, inverted register. Warm white bg with deep blue accents. Dashboard panels read
+   as floating on a bright surface — closer to the Figma or Notion aesthetic. Broad client
+   appeal. */
+.live-interface-b {
+  --bg:      oklch(98% 0.004 240);   /* cool off-white */
+  --surface: oklch(100% 0 0);        /* pure white panels */
+  --border:  oklch(88% 0.006 240);
+  --accent:  oklch(48% 0.22 255);    /* deep electric blue */
+  --accent-2:oklch(62% 0.18 160);    /* muted emerald — secondary */
+  --text:    oklch(10% 0.008 255);
+  --muted:   oklch(55% 0.008 255);
+}
+
+/* Variant C — Amber Command (warm dark — terminal warmth, Raycast/Arc energy, less corporate)
+   Warm-shifted dark palette. Amber accent instead of emerald reads as "indie dev tool" not
+   "enterprise SaaS". Saves better on Dribbble because it's rarer. */
+.live-interface-c {
+  --bg:      oklch(9% 0.010 50);     /* warm near-black */
+  --surface: oklch(13% 0.012 50);
+  --border:  oklch(20% 0.010 50);
+  --accent:  oklch(74% 0.18 72);     /* amber-gold */
+  --accent-2:oklch(62% 0.14 55);     /* deep warm orange */
+  --text:    oklch(96% 0.008 70);    /* warm white */
+  --muted:   oklch(58% 0.010 60);
+}

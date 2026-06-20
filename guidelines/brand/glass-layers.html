@@ -1,0 +1,29 @@
+<!-- @dsCard group="Brand" viewport="700x300" name="Glass — the 2026 Restraint Rule" subtitle="Blur signals z-depth: .glass → .glass-deep. Floating elements only." -->
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-sans);background:oklch(15% 0.008 70);padding:0;height:300px;overflow:hidden;position:relative}
+  /* stand-in scene: warm out-of-focus light shapes (foreground / midground / background) */
+  .scene{position:absolute;inset:0}
+  .orb{position:absolute;border-radius:50%;filter:blur(2px)}
+  .o1{width:280px;height:280px;background:oklch(74% 0.12 72);top:-60px;left:-40px;opacity:.9}
+  .o2{width:200px;height:200px;background:oklch(61% 0.09 72);bottom:-70px;right:80px;opacity:.85}
+  .o3{width:150px;height:150px;background:oklch(82% 0.07 72);top:120px;left:300px;opacity:.7}
+  .o4{width:90px;height:90px;background:oklch(52% 0.16 15);bottom:30px;left:120px;opacity:.55}
+  .panels{position:absolute;inset:0;display:flex;align-items:center;gap:18px;padding:0 28px}
+  .p{padding:18px 20px;color:var(--text);flex:1}
+  .p .k{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-pale);margin-bottom:8px}
+  .p .t{font-size:15px;font-weight:600;line-height:1.3}
+  .p .d{font-size:11px;line-height:1.5;color:var(--text);opacity:.78;margin-top:6px}
+  .p .blur{font-family:var(--font-mono);font-size:9px;color:var(--text);opacity:.6;margin-top:10px}
+</style></head><body class="liquid-glass-a">
+  <div class="scene">
+    <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div>
+  </div>
+  <div class="panels">
+    <div class="p glass"><div class="k">Default</div><div class="t">.glass</div><div class="d">Restraint default for most floating elements — nav, popovers, secondary panels.</div><div class="blur">blur 20px</div></div>
+    <div class="p glass-dense"><div class="k">Opaque backing</div><div class="t">.glass-dense</div><div class="d">When text contrast must hold ≥ 4.5:1, raise opacity — never lower the blur.</div><div class="blur">blur 32px · 42% white</div></div>
+    <div class="p glass-deep"><div class="k">Topmost only</div><div class="t">.glass-deep</div><div class="d">Reserved for the single highest floating element. Deepest blur reads as highest layer.</div><div class="blur">blur 52px</div></div>
+  </div>
+</body></html>

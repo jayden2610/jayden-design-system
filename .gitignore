@@ -1,3 +1,11 @@
 node_modules/
 .DS_Store
 *.log
+
+# Compiler-generated — Claude Design regenerates these. Don't commit.
+_ds_bundle.js
+_ds_manifest.json
+_adherence.oxlintrc.json
+.thumbnail
+scraps/
+PUSH.md

@@ -28,8 +28,7 @@
   --radius-card-max: 20px;   /* verbatim ceiling from Section 7 anti-patterns */
   --radius-full: 999px;      /* added default — pill/tag/button only, per source rule */
 
-  /* Easing — power3.out is the dominant GSAP ease cited across Trends 1, 2, 7.
-     CSS equivalent of GSAP power3.out; --ease-out is an added generic alias (not in source). */
-  --ease-out-power3: cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  /* Easing — power3.out is the dominant GSAP ease cited across Trends 1, 2, 7 */
+  --ease-out-power3: cubic-bezier(0.16, 1, 0.3, 1); /* CSS equivalent of GSAP power3.out */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);         /* added generic alias, not in source */
 }

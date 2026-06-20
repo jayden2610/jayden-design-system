@@ -1,0 +1,20 @@
+/* Jayden Design System — token entrypoint.
+   Import this once, then apply a single trend-variant class on <html> or a wrapper.
+
+   Example:
+     <link rel="stylesheet" href="tokens/index.css">
+     <link rel="stylesheet" href="components/glass.css">
+     <html class="liquid-glass-a"> ...
+
+   Each trend file defines 3 variant classes (A/B/C); Resonant Stark adds a 4th (D).
+*/
+@import "./base.css";
+@import "./trends/spatial-presence.css";
+@import "./trends/liquid-glass.css";
+@import "./trends/neon-noir.css";
+@import "./trends/narrative-motion.css";
+@import "./trends/live-interface.css";
+@import "./trends/open-world-ambient.css";
+@import "./trends/editorial-print.css";
+@import "./trends/bento-grid.css";
+@import "./trends/resonant-stark.css";
