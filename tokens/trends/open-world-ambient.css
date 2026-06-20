@@ -1,0 +1,44 @@
+/* Open World Ambient — Cinematic Scene + Floating UI
+   Token variants for the Open World Ambient trend. Apply one variant class on <html> or a wrapper.
+   Source: ui-design-2026 SKILL.md, Trend 6 (lines ~604-646) */
+
+/* Variant A — Lofi Earth (default — warm, cozy, StudyWithMe energy, Jayden's confirmed taste) */
+.open-world-ambient-a {
+  --text:         oklch(92% 0.018 75);
+  --text-strong:  oklch(99% 0 0);
+  --text-muted:   oklch(92% 0.018 75 / 0.6);
+  --glass:        rgba(255,255,255,0.18);
+  --glass-border: rgba(255,255,255,0.18);
+  --accent:       oklch(74% 0.12 72);    /* warm gold */
+  --accent-pale:  oklch(82% 0.07 72);
+  --accent-cool:  oklch(80% 0.08 220);   /* sky blue for cool scenes */
+}
+
+/* Variant B — Mountain Dawn (cool — alpine morning, misty, meditative — pairs with mountain/forest video)
+   Cool foreground glass tinted ice-blue over a cool scene. The scene breathes forward, panels
+   recede. Completely different emotional register — focus over warmth. Pair with alpine or
+   misty forest video. */
+.open-world-ambient-b {
+  --text:         oklch(96% 0.006 220);  /* cool near-white */
+  --text-strong:  oklch(100% 0 0);
+  --text-muted:   oklch(96% 0.006 220 / 0.55);
+  --glass:        rgba(200,220,255,0.13); /* ice-blue tinted glass */
+  --glass-border: rgba(200,220,255,0.18);
+  --accent:       oklch(78% 0.14 220);   /* sky blue */
+  --accent-pale:  oklch(88% 0.08 220);
+  --accent-cool:  oklch(62% 0.16 250);   /* deep indigo — for depth */
+}
+
+/* Variant C — Sakura Hour (warm pink — cherry blossom, Japanese afternoon, soft luxury)
+   Rose-tinted glass over a warm spring scene. Unusual for ambient UI — immediately distinctive.
+   Best paired with cherry blossom, sakura, or warm garden video. High save rate on Dribbble. */
+.open-world-ambient-c {
+  --text:         oklch(96% 0.008 20);   /* warm white-pink */
+  --text-strong:  oklch(99% 0 0);
+  --text-muted:   oklch(96% 0.008 20 / 0.55);
+  --glass:        rgba(255,220,225,0.15); /* rose-tinted glass */
+  --glass-border: rgba(255,210,220,0.20);
+  --accent:       oklch(72% 0.16 10);    /* warm rose */
+  --accent-pale:  oklch(86% 0.08 15);
+  --accent-cool:  oklch(80% 0.10 350);   /* lavender — cool counterpoint */
+}

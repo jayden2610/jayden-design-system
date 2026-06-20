@@ -1,0 +1,54 @@
+/* Glass components — extracted verbatim from ui-design-2026 SKILL.md, Trend 2 (Liquid Glass),
+   lines ~193-221, plus the Trend 6 (Open World Ambient) panel variant, lines ~579-587.
+
+   THE 2026 RESTRAINT RULE (updated 2026-06-04 — market shifted), summarized from source:
+   - Heavy frosted blur on every panel is OUT. The 2026 standard is subtle translucency on
+     overlays, modals, and floating navigation, paired with strong contrast.
+   - Blur communicates information hierarchy, not decoration — deeper blur = higher in the
+     z-stack. Blur depth must vary by layer; never use one blur value across the whole page.
+   - Glass goes on floating/overlay elements only (nav, modals, popovers, the single hero
+     panel). Content surfaces sit on solid or near-solid backgrounds.
+   - Every glass surface must clear contrast >= 4.5:1 on its text. If the scene behind makes
+     that fail, increase opacity (use .glass-dense) — do not lower the blur.
+   - Default to .glass (the restraint variant). Reserve .glass-deep for the single topmost
+     floating element. Use .glass-dense when text needs a reliable opaque backing.
+*/
+
+/* Restraint default — most floating elements */
+.glass {
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  border-radius: 20px;
+}
+.glass-secondary { background: rgba(255, 255, 255, 0.10); }
+/* Topmost floating element only — deepest blur reads as highest layer */
+.glass-deep {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(52px) saturate(220%);
+  -webkit-backdrop-filter: blur(52px) saturate(220%);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+/* Reliable opaque backing when text contrast must hold */
+.glass-dense {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(32px) saturate(180%);
+}
+
+/* Trend 6 (Open World Ambient) — confirmed glass spec for ambient UI panels, used exactly
+   as-is per source ("use the confirmed spec exactly"). Functionally equivalent to .glass-deep
+   but kept as a distinct class since the source names it separately. */
+.ambient-panel {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(52px) saturate(220%);
+  -webkit-backdrop-filter: blur(52px) saturate(220%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.35);
+  border-radius: 20px;
+}
