@@ -1,0 +1,656 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-06-21",
+  "meta": {
+    "name": "Jayden Design System",
+    "description": "Trend-driven design system: 9 trends × 3 color variants (28 token sets) in OKLCH, plus a restraint-first glass component layer and token-driven React primitives.",
+    "usage": "Pick one trend-variant class and apply it on <html> or a wrapper. Every component reads semantic tokens (--bg, --surface, --accent, --text, --muted) so the whole page re-themes from that one class.",
+    "example": "<html class=\"liquid-glass-a\">",
+    "links": {
+      "readme": "README.md",
+      "guidelines": "GUIDELINES.md",
+      "skill": "SKILL.md",
+      "entrypoint": "styles.css",
+      "repo": "https://github.com/jayden2610/jayden-design-system"
+    },
+    "tokenFormat": "CSS custom properties. Apply the class on <html> — all children inherit.",
+    "aiHint": "Pick ONE trend variant, read its tokens below, apply its CSS class. Never mix tokens from different trends."
+  },
+
+  "shared": {
+    "description": "Base tokens shared across ALL trends. These are defined in tokens/base.css and never change between themes.",
+    "spacing": {
+      "scale": "8-point grid",
+      "tokens": {
+        "--space-1": "4px",
+        "--space-2": "8px",
+        "--space-3": "12px",
+        "--space-4": "16px",
+        "--space-5": "24px",
+        "--space-6": "32px",
+        "--space-7": "48px",
+        "--space-8": "64px"
+      }
+    },
+    "radii": {
+      "rule": "16-20px ceiling on cards. Full-pill (999px) only for tags and buttons. --radius-card-max: 20px is the hard cap for non-pill elements.",
+      "tokens": {
+        "--radius-sm": "8px",
+        "--radius-md": "16px",
+        "--radius-card-max": "20px",
+        "--radius-full": "999px"
+      }
+    },
+    "easing": {
+      "primary": "GSAP power3.out — dominant entrance easing across Trends 1, 2, 7",
+      "tokens": {
+        "--ease-out-power3": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "--ease-out": "cubic-bezier(0.16, 1, 0.3, 1)"
+      }
+    },
+    "typography": {
+      "description": "Defined in tokens/typography.css. Each trend may override --type-display clamp. Type pairings are prose-specified per trend.",
+      "fonts": {
+        "--font-display": ["General Sans", "Neue Montreal", "Söhne", "system-ui", "sans-serif"],
+        "--font-sans": ["General Sans", "system-ui", "-apple-system", "sans-serif"],
+        "--font-serif": ["Newsreader", "Georgia", "Times New Roman", "serif"],
+        "--font-mono": ["JetBrains Mono", "ui-monospace", "SF Mono", "Menlo", "monospace"]
+      },
+      "scale": {
+        "--type-display": "clamp(3rem, 8vw, 7rem)",
+        "--type-h1": "clamp(2.25rem, 5vw, 4rem)",
+        "--type-h2": "clamp(1.75rem, 3.4vw, 2.75rem)",
+        "--type-h3": "clamp(1.35rem, 2.2vw, 1.75rem)",
+        "--type-lead": "clamp(1.125rem, 1.6vw, 1.375rem)",
+        "--type-body": "1rem",
+        "--type-small": "0.875rem",
+        "--type-eyebrow": "0.75rem"
+      },
+      "weights": {
+        "--weight-regular": 400,
+        "--weight-medium": 500,
+        "--weight-semibold": 600,
+        "--weight-bold": 700
+      },
+      "leading": {
+        "--leading-tight": 1.05,
+        "--leading-snug": 1.2,
+        "--leading-normal": 1.6
+      },
+      "tracking": {
+        "--tracking-tight": "-0.02em",
+        "--tracking-normal": "0",
+        "--tracking-eyebrow": "0.22em"
+      }
+    },
+    "glass": {
+      "description": "2026 Restraint Rule: heavy frosted blur on EVERY panel is OUT. Glass on floating/overlay elements only (nav, modals, popovers, one hero panel). Content surfaces sit on solid/near-solid backgrounds. Blur signals z-hierarchy.",
+      "classes": {
+        ".glass": {
+          "usage": "Default — most floating elements",
+          "background": "rgba(255,255,255,0.14)",
+          "backdropFilter": "blur(20px) saturate(180%)",
+          "border": "1px solid rgba(255,255,255,0.16)",
+          "borderRadius": "20px",
+          "boxShadow": ["0 8px 32px rgba(0,0,0,0.16)", "inset 0 1px 0 rgba(255,255,255,0.28)"]
+        },
+        ".glass-deep": {
+          "usage": "Single topmost floating element only",
+          "background": "rgba(255,255,255,0.18)",
+          "backdropFilter": "blur(52px) saturate(220%)",
+          "borderRadius": "20px",
+          "boxShadow": ["0 8px 32px rgba(0,0,0,0.18)", "inset 0 1px 0 rgba(255,255,255,0.35)"]
+        },
+        ".glass-dense": {
+          "usage": "When text needs reliable opaque backing (contrast ≥ 4.5:1)",
+          "background": "rgba(255,255,255,0.42)",
+          "backdropFilter": "blur(32px) saturate(180%)"
+        },
+        ".ambient-panel": {
+          "usage": "Open World Ambient trend — floating UI panel over cinematic scene",
+          "background": "rgba(255,255,255,0.18)",
+          "backdropFilter": "blur(52px) saturate(220%)",
+          "border": "1px solid rgba(255,255,255,0.18)",
+          "borderRadius": "20px",
+          "boxShadow": ["0 8px 32px rgba(0,0,0,0.18)", "inset 0 1px 0 rgba(255,255,255,0.35)"]
+        }
+      }
+    }
+  },
+
+  "trends": {
+    "spatial-presence": {
+      "description": "3D Immersive WebGL — cold, infinite, machine precision. Each variant: 2 accents + text + muted.",
+      "class": "spatial-presence-{variant}",
+      "variants": {
+        "a": {
+          "name": "Electric Void",
+          "description": "Cold, infinite, machine precision",
+          "tokens": {
+            "--bg": "oklch(9% 0.012 255)",
+            "--surface": "oklch(13% 0.014 255)",
+            "--accent-1": "oklch(62% 0.20 255)",
+            "--accent-2": "oklch(58% 0.18 295)",
+            "--text": "oklch(94% 0.004 255)",
+            "--muted": "oklch(50% 0.008 255)"
+          }
+        },
+        "b": {
+          "name": "Solar Forge",
+          "description": "Warm foreground over cool space bg — molten amber, industrial heat",
+          "tokens": {
+            "--bg": "oklch(7% 0.010 30)",
+            "--surface": "oklch(11% 0.014 30)",
+            "--accent-1": "oklch(72% 0.22 55)",
+            "--accent-2": "oklch(65% 0.18 32)",
+            "--text": "oklch(95% 0.010 72)",
+            "--muted": "oklch(52% 0.012 50)"
+          }
+        },
+        "c": {
+          "name": "Jade Terminal",
+          "description": "Cool green — bioluminescent, organic precision, Zaha Hadid meets nature",
+          "tokens": {
+            "--bg": "oklch(7% 0.008 165)",
+            "--surface": "oklch(11% 0.010 165)",
+            "--accent-1": "oklch(74% 0.24 155)",
+            "--accent-2": "oklch(55% 0.16 175)",
+            "--text": "oklch(93% 0.006 165)",
+            "--muted": "oklch(48% 0.010 165)"
+          }
+        }
+      }
+    },
+    "liquid-glass": {
+      "description": "Glassmorphism / Apple Vision Pro material — frosted panels, depth layers, warm or cool scene temperatures.",
+      "class": "liquid-glass-{variant}",
+      "variants": {
+        "a": {
+          "name": "Morning Gold",
+          "description": "Warm cinematic — Jayden's confirmed taste. Default.",
+          "tokens": {
+            "--bg-fallback": "oklch(15% 0.008 70)",
+            "--text": "oklch(92% 0.018 75)",
+            "--text-dark": "oklch(8% 0.012 70)",
+            "--glass": "rgba(255,255,255,0.18)",
+            "--glass-border": "rgba(255,255,255,0.18)",
+            "--accent": "oklch(74% 0.12 72)",
+            "--accent-pale": "oklch(82% 0.07 72)",
+            "--accent-deep": "oklch(61% 0.09 72)",
+            "--muted": "oklch(92% 0.018 75 / 0.6)"
+          }
+        },
+        "b": {
+          "name": "Midnight Indigo",
+          "description": "Cool evening scene, deep focus, cinematic night. Blue-tinted glass.",
+          "tokens": {
+            "--bg-fallback": "oklch(10% 0.015 260)",
+            "--text": "oklch(94% 0.010 240)",
+            "--text-dark": "oklch(8% 0.014 255)",
+            "--glass": "rgba(180,200,255,0.12)",
+            "--glass-border": "rgba(180,200,255,0.16)",
+            "--accent": "oklch(72% 0.18 255)",
+            "--accent-pale": "oklch(82% 0.10 255)",
+            "--accent-deep": "oklch(52% 0.16 270)",
+            "--muted": "oklch(94% 0.010 240 / 0.55)"
+          }
+        },
+        "c": {
+          "name": "Rose Dusk",
+          "description": "Warm pink — golden hour, intimate, lifestyle/wellness. Rose-tinted glass.",
+          "tokens": {
+            "--bg-fallback": "oklch(14% 0.012 10)",
+            "--text": "oklch(96% 0.008 30)",
+            "--text-dark": "oklch(9% 0.010 10)",
+            "--glass": "rgba(255,220,210,0.14)",
+            "--glass-border": "rgba(255,210,200,0.18)",
+            "--accent": "oklch(70% 0.18 20)",
+            "--accent-pale": "oklch(84% 0.10 20)",
+            "--accent-deep": "oklch(52% 0.16 15)",
+            "--muted": "oklch(96% 0.008 30 / 0.55)"
+          }
+        }
+      }
+    },
+    "neon-noir": {
+      "description": "Cyberpunk / Dark Neon — electric neon on near-black backgrounds. Bloom effects, high contrast.",
+      "class": "neon-noir-{variant}",
+      "variants": {
+        "a": {
+          "name": "Acid Green",
+          "description": "Hacker terminal, electric, aggressive precision",
+          "tokens": {
+            "--bg": "oklch(5% 0.004 280)",
+            "--surface": "oklch(8% 0.005 280)",
+            "--neon": "oklch(90% 0.22 155)",
+            "--neon-blue": "oklch(85% 0.18 205)",
+            "--neon-purple": "oklch(62% 0.24 295)",
+            "--text": "oklch(91% 0.006 240)",
+            "--muted": "oklch(45% 0.008 240)"
+          }
+        },
+        "b": {
+          "name": "Blood Neon",
+          "description": "Red/magenta — underground rave, dangerous, high contrast",
+          "tokens": {
+            "--bg": "oklch(5% 0.006 10)",
+            "--surface": "oklch(8% 0.008 10)",
+            "--neon": "oklch(65% 0.28 15)",
+            "--neon-blue": "oklch(72% 0.22 340)",
+            "--neon-purple": "oklch(58% 0.20 295)",
+            "--text": "oklch(93% 0.006 20)",
+            "--muted": "oklch(44% 0.010 20)"
+          }
+        },
+        "c": {
+          "name": "Arctic Wire",
+          "description": "Cold blue/white — clean cyberpunk, near-future, Scandinavian dark. Restrained bloom.",
+          "tokens": {
+            "--bg": "oklch(6% 0.010 230)",
+            "--surface": "oklch(10% 0.012 230)",
+            "--neon": "oklch(94% 0.06 220)",
+            "--neon-blue": "oklch(76% 0.20 220)",
+            "--neon-purple": "oklch(60% 0.14 250)",
+            "--text": "oklch(95% 0.004 220)",
+            "--muted": "oklch(48% 0.010 220)"
+          }
+        }
+      }
+    },
+    "narrative-motion": {
+      "description": "Scrollytelling / Functional Motion — editorial energy with motion that reveals. 2-ink system with paper + ink metaphor.",
+      "class": "narrative-motion-{variant}",
+      "variants": {
+        "a": {
+          "name": "Terracotta Press",
+          "description": "Warm editorial, ink-and-earth, magazine energy",
+          "tokens": {
+            "--bg": "oklch(98% 0.002 90)",
+            "--ink": "oklch(10% 0.004 90)",
+            "--accent": "oklch(58% 0.24 32)",
+            "--accent-2": "oklch(52% 0.22 255)",
+            "--surface": "oklch(93% 0.008 90)"
+          }
+        },
+        "b": {
+          "name": "Obsidian Broadsheet",
+          "description": "Dark night mode editorial, luxury newspaper, high contrast",
+          "tokens": {
+            "--bg": "oklch(10% 0.008 60)",
+            "--ink": "oklch(94% 0.010 80)",
+            "--accent": "oklch(82% 0.16 75)",
+            "--accent-2": "oklch(65% 0.22 255)",
+            "--surface": "oklch(15% 0.010 60)"
+          }
+        },
+        "c": {
+          "name": "Risograph Mist",
+          "description": "Cool toned — Japanese zine, ink overprint, coastal editorial",
+          "tokens": {
+            "--bg": "oklch(95% 0.008 240)",
+            "--ink": "oklch(12% 0.010 240)",
+            "--accent": "oklch(52% 0.22 255)",
+            "--accent-2": "oklch(62% 0.18 32)",
+            "--surface": "oklch(90% 0.010 240)"
+          }
+        }
+      }
+    },
+    "live-interface": {
+      "description": "Embedded Interactive Product Preview — SaaS / web app UI. Clean panels, accent+border tokens, dark+light variants.",
+      "class": "live-interface-{variant}",
+      "variants": {
+        "a": {
+          "name": "Dark Emerald",
+          "description": "Confident SaaS, Stripe/Linear energy. Dark background.",
+          "tokens": {
+            "--bg": "oklch(10% 0.015 255)",
+            "--surface": "oklch(14% 0.012 255)",
+            "--border": "oklch(20% 0.010 255)",
+            "--accent": "oklch(72% 0.17 160)",
+            "--accent-2": "oklch(62% 0.20 255)",
+            "--text": "oklch(97% 0.004 255)",
+            "--muted": "oklch(63% 0.008 255)"
+          }
+        },
+        "b": {
+          "name": "Light Studio",
+          "description": "Clean, airy, Figma/Linear light mode. White panels, blue accent.",
+          "tokens": {
+            "--bg": "oklch(98% 0.004 240)",
+            "--surface": "oklch(100% 0 0)",
+            "--border": "oklch(88% 0.006 240)",
+            "--accent": "oklch(48% 0.22 255)",
+            "--accent-2": "oklch(62% 0.18 160)",
+            "--text": "oklch(10% 0.008 255)",
+            "--muted": "oklch(55% 0.008 255)"
+          }
+        },
+        "c": {
+          "name": "Amber Command",
+          "description": "Warm dark — terminal warmth, Raycast/Arc energy. Amber accent.",
+          "tokens": {
+            "--bg": "oklch(9% 0.010 50)",
+            "--surface": "oklch(13% 0.012 50)",
+            "--border": "oklch(20% 0.010 50)",
+            "--accent": "oklch(74% 0.18 72)",
+            "--accent-2": "oklch(62% 0.14 55)",
+            "--text": "oklch(96% 0.008 70)",
+            "--muted": "oklch(58% 0.010 60)"
+          }
+        }
+      }
+    },
+    "open-world-ambient": {
+      "description": "Cinematic Scene + Floating UI — ambient glass panels over full-screen video or 3D scenes. Glassmorphism focused.",
+      "class": "open-world-ambient-{variant}",
+      "variants": {
+        "a": {
+          "name": "Lofi Earth",
+          "description": "Warm, cozy, StudyWithMe energy. Jayden's confirmed taste. Warm gold glass.",
+          "tokens": {
+            "--text": "oklch(92% 0.018 75)",
+            "--text-strong": "oklch(99% 0 0)",
+            "--text-muted": "oklch(92% 0.018 75 / 0.6)",
+            "--glass": "rgba(255,255,255,0.18)",
+            "--glass-border": "rgba(255,255,255,0.18)",
+            "--accent": "oklch(74% 0.12 72)",
+            "--accent-pale": "oklch(82% 0.07 72)",
+            "--accent-cool": "oklch(80% 0.08 220)"
+          }
+        },
+        "b": {
+          "name": "Mountain Dawn",
+          "description": "Alpine morning, misty, meditative. Ice-blue tinted glass. Pairs with mountain/forest video.",
+          "tokens": {
+            "--text": "oklch(96% 0.006 220)",
+            "--text-strong": "oklch(100% 0 0)",
+            "--text-muted": "oklch(96% 0.006 220 / 0.55)",
+            "--glass": "rgba(200,220,255,0.13)",
+            "--glass-border": "rgba(200,220,255,0.18)",
+            "--accent": "oklch(78% 0.14 220)",
+            "--accent-pale": "oklch(88% 0.08 220)",
+            "--accent-cool": "oklch(62% 0.16 250)"
+          }
+        },
+        "c": {
+          "name": "Sakura Hour",
+          "description": "Cherry blossom, Japanese afternoon, soft luxury. Rose-tinted glass over warm spring scene.",
+          "tokens": {
+            "--text": "oklch(96% 0.008 20)",
+            "--text-strong": "oklch(99% 0 0)",
+            "--text-muted": "oklch(96% 0.008 20 / 0.55)",
+            "--glass": "rgba(255,220,225,0.15)",
+            "--glass-border": "rgba(255,210,220,0.20)",
+            "--accent": "oklch(72% 0.16 10)",
+            "--accent-pale": "oklch(86% 0.08 15)",
+            "--accent-cool": "oklch(80% 0.10 350)"
+          }
+        }
+      }
+    },
+    "editorial-print": {
+      "description": "Neo-Japandi / Illustration-First — strict 2-ink system. --accent never appears at full weight more than twice per section.",
+      "class": "editorial-print-{variant}",
+      "variants": {
+        "a": {
+          "name": "Terracotta Ukiyo",
+          "description": "Aged paper, warm terracotta, Neo Mirai energy",
+          "tokens": {
+            "--paper": "oklch(91% 0.028 82)",
+            "--ink": "oklch(14% 0.006 80)",
+            "--accent": "oklch(50% 0.18 34)",
+            "--accent-2": "oklch(72% 0.12 76)",
+            "--muted": "oklch(52% 0.020 72)"
+          }
+        },
+        "b": {
+          "name": "Indigo Woodblock",
+          "description": "Japanese woodblock blue, Hokusai palette. Cool indigo on ivory paper.",
+          "tokens": {
+            "--paper": "oklch(94% 0.012 240)",
+            "--ink": "oklch(12% 0.012 250)",
+            "--accent": "oklch(38% 0.22 255)",
+            "--accent-2": "oklch(70% 0.14 255)",
+            "--muted": "oklch(50% 0.016 245)"
+          }
+        },
+        "c": {
+          "name": "Night Market",
+          "description": "Dark editorial — lantern light on black, festival poster, ink-on-dark",
+          "tokens": {
+            "--paper": "oklch(10% 0.012 50)",
+            "--ink": "oklch(94% 0.016 75)",
+            "--accent": "oklch(72% 0.22 55)",
+            "--accent-2": "oklch(58% 0.18 32)",
+            "--muted": "oklch(55% 0.014 60)"
+          }
+        }
+      }
+    },
+    "bento-grid": {
+      "description": "Modular Info Architecture / SaaS Layout — grid-based layout with surface-2 for sub-cards within cells. surface / border / accent tokens.",
+      "class": "bento-grid-{variant}",
+      "variants": {
+        "a": {
+          "name": "Clean Light",
+          "description": "Cool white, electric blue, Vercel/Linear energy",
+          "tokens": {
+            "--bg": "oklch(97% 0.004 255)",
+            "--surface": "oklch(100% 0 0)",
+            "--surface-2": "oklch(94% 0.006 255)",
+            "--accent": "oklch(52% 0.22 255)",
+            "--accent-dark": "oklch(38% 0.20 255)",
+            "--ink": "oklch(10% 0.008 255)",
+            "--muted": "oklch(58% 0.010 255)",
+            "--border": "oklch(88% 0.006 255)"
+          }
+        },
+        "b": {
+          "name": "Obsidian Grid",
+          "description": "Dark premium product, high-contrast cells, Raycast energy",
+          "tokens": {
+            "--bg": "oklch(9% 0.012 255)",
+            "--surface": "oklch(13% 0.010 255)",
+            "--surface-2": "oklch(16% 0.008 255)",
+            "--accent": "oklch(72% 0.17 255)",
+            "--accent-2": "oklch(74% 0.12 155)",
+            "--ink": "oklch(96% 0.004 255)",
+            "--muted": "oklch(55% 0.008 255)",
+            "--border": "oklch(22% 0.010 255)"
+          }
+        },
+        "c": {
+          "name": "Warm Linen",
+          "description": "Warm neutral — editorial bento, Apple marketing warmth, lifestyle brands",
+          "tokens": {
+            "--bg": "oklch(97% 0.006 80)",
+            "--surface": "oklch(100% 0 0)",
+            "--surface-2": "oklch(94% 0.008 80)",
+            "--accent": "oklch(46% 0.16 30)",
+            "--accent-dark": "oklch(34% 0.14 25)",
+            "--ink": "oklch(10% 0.006 60)",
+            "--muted": "oklch(56% 0.008 70)",
+            "--border": "oklch(88% 0.008 80)"
+          }
+        }
+      }
+    },
+    "resonant-stark": {
+      "description": "Quiet Premium / Restrained Minimalism — extreme token restraint. Accent appears ONCE per page (or twice at most). 4 variants (A/B/C standard + D Studio Blush).",
+      "class": "resonant-stark-{variant}",
+      "variants": {
+        "a": {
+          "name": "Paper + Deep Blue",
+          "description": "Swiss precision, trust, Stripe/healthcare energy. Deep blue accent used once.",
+          "tokens": {
+            "--bg": "oklch(98% 0.003 90)",
+            "--ink": "oklch(10% 0.004 255)",
+            "--muted": "oklch(55% 0.006 255)",
+            "--border": "oklch(88% 0.006 255)",
+            "--accent": "oklch(38% 0.18 255)"
+          }
+        },
+        "b": {
+          "name": "Obsidian + Gold",
+          "description": "Dark luxury, premium, architectural firms. Warm gold accent appears once.",
+          "tokens": {
+            "--bg": "oklch(8% 0.006 255)",
+            "--ink": "oklch(94% 0.004 255)",
+            "--muted": "oklch(52% 0.008 255)",
+            "--border": "oklch(18% 0.010 255)",
+            "--accent": "oklch(72% 0.12 72)"
+          }
+        },
+        "c": {
+          "name": "Chalk + Forest",
+          "description": "Warm neutral + deep forest green — organic premium, wellness, sustainability",
+          "tokens": {
+            "--bg": "oklch(97% 0.005 100)",
+            "--ink": "oklch(11% 0.008 140)",
+            "--muted": "oklch(52% 0.010 140)",
+            "--border": "oklch(86% 0.010 100)",
+            "--accent": "oklch(34% 0.16 155)"
+          }
+        },
+        "d": {
+          "name": "Studio Blush",
+          "description": "Unseen Studio energy — bold restraint, creative-agency confidence. Two-ink system: black + blush pink.",
+          "tokens": {
+            "--bg": "oklch(8% 0.004 320)",
+            "--ink": "oklch(96% 0.020 350)",
+            "--muted": "oklch(50% 0.012 320)",
+            "--border": "oklch(20% 0.008 320)",
+            "--accent": "oklch(85% 0.045 350)"
+          },
+          "rules": [
+            "Body text runs in --muted or desaturated white; pink is reserved for headlines, cursor/loader, and hover states",
+            "Personality loader on page load: one deliberate animation beat (wobble, overshoot) before settling",
+            "Custom cursor: small pink dot/ring that scales 1.6x on hover over interactive elements",
+            "Display type up to clamp(3.5rem, 9vw, 8rem)",
+            "No glassmorphism, gradients, or generic SaaS sans"
+          ]
+        }
+      }
+    }
+  },
+
+  "products": {
+    "tymos": {
+      "description": "EXAMPLE product theme — NOT a 10th trend. A warm candle-lit Pomodoro timer. Use class=\"tymos\" only when extending the Tymos example.",
+      "class": "tymos",
+      "tokens": {
+        "--bg": "#f0e9dc",
+        "--surface": "#ece4d5",
+        "--surface-2": "#e4dac8",
+        "--surface-3": "#d9cdb8",
+        "--border": "rgba(120,95,65,0.14)",
+        "--border-2": "rgba(120,95,65,0.22)",
+        "--text": "#2e1f0d",
+        "--text-2": "#6b5340",
+        "--ink": "#2e1f0d",
+        "--muted": "#a08b75",
+        "--accent": "#7c5c3a",
+        "--accent-2": "#a07850",
+        "--accent-3": "#c9a87a",
+        "--accent-bg": "rgba(124,92,58,0.08)",
+        "--on-accent": "#f5ede0",
+        "--red": "#b84f3a",
+        "--green": "#4a8c5c",
+        "--blue": "#3a6b8c",
+        "--yellow": "#b8903a",
+        "--ring-work": "#a07850",
+        "--ring-break": "#5a8ca0",
+        "--shadow": "0 2px 12px rgba(80,50,20,0.10)",
+        "--shadow-2": "0 4px 24px rgba(80,50,20,0.14)"
+      },
+      "fonts": {
+        "--font-serif": ["Lora", "Georgia", "serif"],
+        "--font-sans": ["Nunito", "system-ui", "sans-serif"],
+        "--font-display": ["Lora", "Georgia", "serif"],
+        "--font-mono": ["DM Mono", "ui-monospace", "Menlo", "monospace"]
+      },
+      "radii": {
+        "--radius-sm": "8px",
+        "--radius-md": "12px",
+        "--radius-lg": "16px",
+        "--radius-pill": "100px"
+      },
+      "easing": {
+        "--ease-spring": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "--ease-out": "cubic-bezier(0.16, 1, 0.3, 1)"
+      }
+    }
+  },
+
+  "components": {
+    "description": "Token-driven components. All read from CSS custom properties set by the active trend-variant class.",
+    "react": {
+      "Button": {
+        "description": "Action control. Reads --accent, --surface, --border, --text. Pill radius per system rule.",
+        "variants": {
+          "primary": { "background": "var(--accent)", "color": "var(--bg, var(--paper, #fff))" },
+          "secondary": { "background": "var(--surface)", "color": "var(--text, var(--ink))", "border": "1px solid var(--border)" },
+          "ghost": { "background": "transparent", "color": "var(--accent)" }
+        },
+        "sizes": { "sm": "8px 16px", "md": "12px 24px", "lg": "15px 32px" },
+        "props": ["variant", "size", "disabled", "iconBefore", "iconAfter", "onClick"],
+        "radius": "var(--radius-full, 999px)",
+        "promptFile": "components/core/Button.prompt.md"
+      },
+      "Card": {
+        "description": "Surface container. Reads --surface, --border, --shadow, --radius. Interactive variant lifts on hover.",
+        "props": ["interactive", "padding (default 20)", "as (element tag)"],
+        "tokens": {
+          "background": "var(--surface, #fff)",
+          "border": "1px solid var(--border, rgba(127,127,127,0.16))",
+          "radius": "var(--radius-md, 12px)",
+          "shadow": "var(--shadow, 0 2px 12px rgba(80,50,20,0.10))",
+          "hoverShadow": "var(--shadow-2, 0 4px 24px rgba(80,50,20,0.14))"
+        },
+        "promptFile": "components/core/Card.prompt.md"
+      },
+      "Badge": {
+        "description": "Monospace pill for status, priority, metrics. 100px radius. Soft (tinted bg) or solid (filled) tones.",
+        "tones": ["accent", "high", "medium", "low", "info", "muted"],
+        "props": ["tone", "solid (boolean)"],
+        "radius": "var(--radius-pill, 100px)",
+        "promptFile": "components/core/Badge.prompt.md"
+      }
+    },
+    "css": {
+      ".btn": {
+        "description": "Token-driven action button. Pill radius, reads --accent, --surface, --bg.",
+        "radius": "var(--radius-full, 999px)",
+        "hoverTransform": "scale(1.02)",
+        "transition": "transform var(--ease-out) 0.2s, opacity 0.2s"
+      },
+      ".card": {
+        "description": "Token-driven surface container. Reads --surface, --border, --text/--ink.",
+        "radius": "var(--radius-md, 16px)",
+        "hoverTransform": "translateY(-4px)",
+        "padding": "var(--space-5, 24px)"
+      }
+    }
+  },
+
+  "guidelines": {
+    "summary": "Full taste profile, pre-build gate, and anti-slop test in GUIDELINES.md",
+    "colorRules": [
+      "2-3 hues max. Richness from texture and depth, not hue count.",
+      "All color in OKLCH tokens under tokens/trends/*.css — never raw hex in components.",
+      "One trend-variant class per page. Components read --bg / --surface / --accent / --text / --muted / --border.",
+      "Avoid purple-on-white SaaS gradient (instant disqualification)."
+    ],
+    "glassRules": [
+      "Heavy frosted blur on every panel is OUT. Glass on floating/overlay elements only.",
+      "Blur signals z-hierarchy — deeper blur = higher layer. Vary blur per layer.",
+      "Every glass surface clears contrast ≥ 4.5:1 on its text.",
+      "Default .glass; reserve .glass-deep for the single topmost element; .glass-dense when text needs opaque backing."
+    ],
+    "qualityGates": [
+      "No placeholder copy ever. No 'Lorem ipsum', no 'Product Name'. Delivery-ready with real content.",
+      "Pre-build gate: Purpose → Tone → Differentiation Anchor → Taste Alignment → Physical Scene Sentence → AI Slop Test."
+    ]
+  }
+}

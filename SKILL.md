@@ -4,15 +4,14 @@ description: Use this skill to generate well-branded interfaces and assets with 
 user-invocable: true
 ---
 
-Read the `README.md` and `GUIDELINES.md` files within this skill, then explore the other files.
+First, read `design-tokens.json` — it contains every token, theme, and component in a single structured file. One read gives you the full system.
+Then read `GUIDELINES.md` — the taste profile, pre-build gate, anti-slop test, and the color + glass rules govern every decision.
 
 This is a **trend-driven design system**. To use it:
-1. Read `GUIDELINES.md` first — the taste profile, pre-build gate, anti-slop test, and the
-   color + glass rules govern every decision.
-2. Pick **one trend-variant class** for the page (e.g. `liquid-glass-a`, `resonant-stark-b`,
-   `bento-grid-c`) and apply it on `<html>` or a wrapper. Link `styles.css`.
+1. Open `design-tokens.json` and pick **one trend-variant** (e.g. `liquid-glass/a`, `resonant-stark/b`, `bento-grid/c`). The JSON has every value at a glance.
+2. Apply the corresponding class (e.g. `liquid-glass-a`, `resonant-stark-b`, `bento-grid-c`) on `<html>` or a wrapper. Link `styles.css`.
 3. Build with the token-driven components — they read `--bg / --surface / --accent / --text
-   / --muted` and re-theme from that one class. Never use raw hex; use the OKLCH tokens.
+   / --muted` and re-theme from that one class. Never use raw hex; use the OKLCH tokens from your chosen variant.
 
 Key files:
 - `README.md` — full guide: content fundamentals, visual foundations, iconography, manifest.
