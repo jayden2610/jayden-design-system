@@ -40,6 +40,39 @@ Each trend exposes variants `-a` / `-b` / `-c` (Resonant Stark also has `-d`, "S
 
 ---
 
+## Project brief workflow — how to use this system
+
+When starting a new page or interface, the design system follows a structured workflow to go from brief to production output. This is the recommended process the system (and its AI skill) follows.
+
+### Step 1 — Understand the brief
+
+Establish the type of page (landing, dashboard, SaaS product, portfolio, etc.), the target audience, any brand cues, and the production level needed.
+
+### Step 2 — Get a style recommendation
+
+For every project brief, the system recommends **one trend-variant** with a written rationale:
+- **Why this trend** — connects the project's needs to the aesthetic
+- **The colorway** — specific OKLCH tokens (`--bg`, `--accent`, `--text`, etc.)
+- **The page flow** — section-by-section layout description
+- **An alternative** — a contrasting mood option
+
+### Step 3 — Preview with low-token templates
+
+Before building the final page, start with a layout sketch — a lightweight, self-contained HTML file (~15-30KB) showing the page flow. These let you see different trend moods on the same layout before committing.
+
+Pre-built templates are available in `project-templates/`:
+- **[landing.html](project-templates/landing.html)** — hero + features + testimonials + CTA. Preview with Liquid Glass (warm), Bento Grid (clean), or Resonant Stark (premium dark).
+- **[dashboard.html](project-templates/dashboard.html)** — sidebar + stats + chart + data table. Preview with Live Interface (SaaS), Bento Grid (dark premium), or Spatial Presence (futuristic).
+- **[saas-product.html](project-templates/saas-product.html)** — hero + feature grid + pricing cards. Preview with Live Interface (SaaS dark), Bento Grid (SaaS light), or Resonant Stark (professional).
+
+Each template includes a theme switcher so you can cycle through 2-3 trend moods while evaluating the layout.
+
+### Step 4 — Build the final page
+
+Once the direction is confirmed, build the full page linking `styles.css` and applying the chosen trend class on `<html>`. The full token layer, glass components, and type scale are then available.
+
+---
+
 ## Content fundamentals — how this system writes
 
 Voice is governed by `GUIDELINES.md`'s taste profile. The constants across every trend:
@@ -130,7 +163,12 @@ to see *what a finished product looks like*, look at Tymos.
 - `styles.css` — global entrypoint. Link this one file; it `@import`s everything below.
 - `README.md` — this guide. `GUIDELINES.md` — taste profile, pre-build gate, anti-slop test,
   color + glass rules (mirrors canonical repo).
-- `SKILL.md` — Agent Skills wrapper for use in Claude Code.
+- `SKILL.md` — Agent Skills wrapper for use in Claude Code. Includes the full project brief workflow.
+
+**Project templates** (`project-templates/`) — low-token HTML layout sketches for quick previews:
+  - `landing.html` — hero + features + testimonials + CTA (3 theme moods)
+  - `dashboard.html` — sidebar + stats + chart + table (3 theme moods)
+  - `saas-product.html` — nav + hero + features + pricing (3 theme moods)
 
 **Tokens** (`tokens/`)
 - `index.css` → `base.css` + `trends/*.css` — the 9 trends × 3 OKLCH variants (canonical).
