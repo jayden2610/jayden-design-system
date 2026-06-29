@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en" class="liquid-glass-a">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jayden Design System</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23c49a6c'/><text x='16' y='22' text-anchor='middle' fill='%23fff' font-size='18' font-weight='700' font-family='system-ui'>J</text></svg>">
+  <style>
+    /* ===== Page-level styles (outside the design system — layout-only) ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans, system-ui, sans-serif);
+      background: var(--bg-fallback, var(--bg, #0f0f0f));
+      color: var(--text, var(--ink, #fff));
+      line-height: var(--leading-normal, 1.6);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      transition: background 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ===== Scene background ===== */
+    .scene-bg {
+      position: fixed; inset: 0; z-index: 0;
+      background: var(--bg-fallback, var(--bg, #0f0f0f));
+      transition: background 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scene-bg::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(255,200,120,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(255,180,100,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 50% at 20% 60%, rgba(200,180,255,0.05) 0%, transparent 50%);
+    }
+
+    /* ===== Glass nav ===== */
+    .nav {
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      z-index: 100; display: flex; align-items: center; gap: 12px;
+      padding: 8px 20px 8px 24px;
+      min-width: 320px;
+    }
+    .nav-brand {
+      font-family: var(--font-display, system-ui);
+      font-weight: 600; font-size: 1rem; letter-spacing: -0.01em;
+      margin-right: auto;
+    }
+    .nav-brand span { opacity: 0.5; font-weight: 400; }
+
+    /* Theme switcher */
+    .theme-select-wrap {
+      position: relative;
+    }
+    .theme-select {
+      appearance: none;
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 6px 32px 6px 14px;
+      font-family: var(--font-sans, system-ui);
+      font-size: 0.8rem;
+      cursor: pointer;
+      outline: none;
+      transition: background 0.2s;
+    }
+    .theme-select:hover { background: rgba(255,255,255,0.14); }
+    .theme-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .theme-select-wrap::after {
+      content: '▾';
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      font-size: 0.7rem; opacity: 0.5; pointer-events: none;
+    }
+
+    .nav-info {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.75rem; font-family: var(--font-mono, monospace);
+      opacity: 0.6;
+    }
+    .nav-info .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      transition: background 0.4s;
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 80px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono, monospace);
+      font-size: var(--type-eyebrow, 0.75rem);
+      letter-spacing: var(--tracking-eyebrow, 0.22em);
+      text-transform: uppercase;
+      opacity: 0.5; margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: var(--font-display, system-ui);
+      font-size: var(--type-display, clamp(3rem, 8vw, 7rem));
+      font-weight: 600; letter-spacing: var(--tracking-tight, -0.02em);
+      line-height: var(--leading-tight, 1.05);
+      max-width: 900px; margin-bottom: 20px;
+    }
+    .hero h1 .accent {
+      color: var(--accent);
+      transition: color 0.4s;
+    }
+    .hero p {
+      font-size: var(--type-lead, clamp(1.125rem, 1.6vw, 1.375rem));
+      max-width: 600px; opacity: 0.7; margin-bottom: 40px;
+    }
+    .hero-actions {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    }
+
+    /* ===== Sections ===== */
+    section { position: relative; z-index: 1; padding: 100px 24px; }
+    .section-label {
+      font-family: var(--font-mono, monospace);
+      font-size: var(--type-eyebrow, 0.75rem);
+      letter-spacing: var(--tracking-eyebrow, 0.22em);
+      text-transform: uppercase; opacity: 0.4; margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-display, system-ui);
+      font-size: var(--type-h2, clamp(1.75rem, 3.4vw, 2.75rem));
+      font-weight: 600; letter-spacing: var(--tracking-tight, -0.02em);
+      line-height: var(--leading-snug, 1.2); margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: var(--type-lead, clamp(1.125rem, 1.6vw, 1.375rem));
+      max-width: 560px; opacity: 0.6; margin-bottom: 48px;
+    }
+
+    .section-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    /* ===== Trend cards ===== */
+    .trend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .trend-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md, 16px);
+      padding: 24px;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1),
+                  background 0.3s,
+                  border-color 0.3s;
+    }
+    .trend-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.14);
+    }
+    .trend-card.active {
+      border-color: var(--accent);
+      background: rgba(255,255,255,0.10);
+    }
+    .trend-card .swatch {
+      display: flex; gap: 6px; margin-bottom: 16px;
+    }
+    .trend-card .swatch span {
+      width: 28px; height: 28px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .trend-card h3 {
+      font-family: var(--font-display, system-ui);
+      font-size: 1.05rem; font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .trend-card .variant-label {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.7rem; opacity: 0.4; text-transform: uppercase;
+      letter-spacing: 0.08em; margin-bottom: 8px;
+    }
+    .trend-card p {
+      font-size: 0.85rem; opacity: 0.6;
+      line-height: 1.5;
+    }
+
+    /* ===== Color palette display ===== */
+    .palette-grid {
+      display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px;
+    }
+    .palette-swatch {
+      flex: 1; min-width: 100px;
+      border-radius: var(--radius-md, 16px);
+      padding: 16px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .palette-swatch .value {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.65rem; opacity: 0.7; word-break: break-all;
+    }
+    .palette-swatch .name {
+      font-size: 0.75rem; font-weight: 500;
+    }
+
+    /* ===== Component showcase ===== */
+    .component-showcase {
+      display: flex; flex-direction: column; gap: 32px;
+    }
+    .component-row {
+      display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+    }
+    .component-row .label {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.75rem; opacity: 0.4; min-width: 80px;
+    }
+
+    /* Card variants */
+    .card-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .demo-card {
+      padding: 24px;
+      border-radius: var(--radius-md, 16px);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1),
+                  background 0.3s;
+    }
+    .demo-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.10);
+    }
+    .demo-card h4 {
+      font-family: var(--font-display, system-ui);
+      font-size: 1rem; font-weight: 600; margin-bottom: 8px;
+    }
+    .demo-card p {
+      font-size: 0.85rem; opacity: 0.6; line-height: 1.5;
+    }
+    .demo-card .badge {
+      display: inline-block;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.7rem; padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--accent); color: var(--bg, #000);
+      margin-bottom: 12px; letter-spacing: 0.02em;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    /* ===== Typography scale ===== */
+    .type-scale {
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .type-row {
+      display: flex; align-items: baseline; gap: 16px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .type-row .token {
+      font-family: var(--font-mono, monospace);
+      font-size: 0.7rem; opacity: 0.35; min-width: 120px;
+      letter-spacing: 0.02em;
+    }
+    .type-row .sample {
+      font-family: var(--font-display, system-ui);
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      position: relative; z-index: 1;
+      text-align: center; padding: 48px 24px 64px;
+      font-size: 0.8rem; opacity: 0.4;
+    }
+    footer a { color: var(--accent); text-decoration: none; transition: color 0.4s; }
+
+    /* ===== Variant tabs under each trend ===== */
+    .variant-tabs {
+      display: flex; gap: 4px; margin-bottom: 12px;
+    }
+    .variant-tab {
+      padding: 2px 10px; border-radius: 999px;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.65rem; letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: transparent; color: var(--text); opacity: 0.5;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .variant-tab:hover { opacity: 0.8; background: rgba(255,255,255,0.06); }
+    .variant-tab.active { opacity: 1; border-color: var(--accent); background: rgba(255,255,255,0.10); }
+
+    /* ===== Animations ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero > * { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) both; }
+    .hero > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero > *:nth-child(4) { animation-delay: 0.4s; }
+    .hero > *:nth-child(5) { animation-delay: 0.5s; }
+    .hero-actions { animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s both; }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== Background scene image ===== */
+    .scene-image {
+      position: fixed; inset: 0; z-index: 0;
+      background-size: cover; background-position: center;
+      opacity: 0.35;
+      transition: opacity 0.8s;
+    }
+    .scene-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, var(--bg-fallback, var(--bg, #0f0f0f)) 100%);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: clamp(2rem, 10vw, 3rem); }
+      .nav { min-width: auto; width: calc(100% - 24px); padding: 8px 16px; gap: 8px; }
+      .nav-info { display: none; }
+      .trend-grid { grid-template-columns: 1fr; }
+      .card-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background scene -->
+<div class="scene-bg" id="sceneBg"></div>
+
+<!-- Floating nav -->
+<nav class="nav glass" role="navigation">
+  <div class="nav-brand">Jayden <span>Design System</span></div>
+  <div class="theme-select-wrap">
+    <select class="theme-select" id="themeSelect" aria-label="Select theme"></select>
+  </div>
+  <div class="nav-info">
+    <span class="dot"></span>
+    <span id="themeLabel">Liquid Glass · Morning Gold</span>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-eyebrow">Trend-Driven Design System</div>
+  <h1>Radical <span class="accent">restraint</span>.<br>Expressive depth.</h1>
+  <p>9 trends × 3 color variants — 28 OKLCH token sets, one restraint-first glass layer. Swap a single class to re-theme an entire page.</p>
+  <div class="hero-actions">
+    <button class="btn btn-primary" onclick="document.getElementById('trends').scrollIntoView({behavior:'smooth'})">View Trends</button>
+    <button class="btn btn-secondary" onclick="document.getElementById('components').scrollIntoView({behavior:'smooth'})">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Components
+    </button>
+  </div>
+</section>
+
+<!-- Trends -->
+<section id="trends">
+  <div class="section-inner">
+    <div class="section-label">Trends</div>
+    <h2 class="section-title">One class,<br>any aesthetic.</h2>
+    <p class="section-desc">Each trend has 3 color variants (A/B/C). Resonant Stark adds a 4th — Studio Blush. Click a card to try it live.</p>
+    <div class="trend-grid" id="trendGrid"></div>
+  </div>
+</section>
+
+<!-- Color Palette -->
+<section id="palette">
+  <div class="section-inner">
+    <div class="section-label">Color System</div>
+    <h2 class="section-title">Active palette</h2>
+    <p class="section-desc" id="paletteDesc">OKLCH tokens driving the current theme — 2–3 hues max, richness from depth.</p>
+    <div class="palette-grid" id="paletteGrid"></div>
+  </div>
+</section>
+
+<!-- Components -->
+<section id="components">
+  <div class="section-inner">
+    <div class="section-label">Components</div>
+    <h2 class="section-title">Token-driven primitives.</h2>
+    <p class="section-desc">Every component reads CSS custom properties from the active trend class. Change the class, re-theme everything.</p>
+    <div class="component-showcase">
+
+      <!-- Buttons -->
+      <div>
+        <div class="component-row">
+          <span class="label">Buttons</span>
+          <button class="btn">Primary</button>
+          <button class="btn btn-secondary">Secondary</button>
+          <button class="btn btn-secondary" disabled>Disabled</button>
+          <button class="btn btn-ghost">Ghost</button>
+        </div>
+      </div>
+
+      <!-- Cards -->
+      <div>
+        <span class="label" style="display:block; font-family:var(--font-mono, monospace); font-size:0.75rem; opacity:0.4; margin-bottom:12px;">Cards</span>
+        <div class="card-row">
+          <div class="demo-card">
+            <span class="badge">Trend</span>
+            <h4>Liquid Glass</h4>
+            <p>Glassmorphism with restraint — frosted panels on floating elements only. 2026 standard.</p>
+          </div>
+          <div class="demo-card">
+            <span class="badge">Variant</span>
+            <h4>Morning Gold</h4>
+            <p>Warm cinematic, golden hour temperature. The confirmed default — light, airy, Apple-clean.</p>
+          </div>
+          <div class="demo-card">
+            <span class="badge">System</span>
+            <h4>28 Token Sets</h4>
+            <p>9 trends × 3 variants, all in OKLCH. One class on &lt;html&gt;, full page re-theme.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Glass panels -->
+      <div>
+        <span class="label" style="display:block; font-family:var(--font-mono, monospace); font-size:0.75rem; opacity:0.4; margin-bottom:12px;">Glass Layer</span>
+        <div class="card-row">
+          <div class="demo-card glass">
+            <h4>.glass</h4>
+            <p>Default restraint — 20px blur, subtle border. For most floating elements.</p>
+          </div>
+          <div class="demo-card glass-deep">
+            <h4>.glass-deep</h4>
+            <p>52px blur, topmost floating element only. Deeper blur = higher z-layer.</p>
+          </div>
+          <div class="demo-card glass-dense">
+            <h4>.glass-dense</h4>
+            <p>Higher opacity for reliable text contrast ≥ 4.5:1. For content-heavy overlays.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typography -->
+      <div>
+        <span class="label" style="display:block; font-family:var(--font-mono, monospace); font-size:0.75rem; opacity:0.4; margin-bottom:12px;">Type Scale</span>
+        <div class="type-scale">
+          <div class="type-row">
+            <span class="token">--type-display</span>
+            <span class="sample" style="font-size:var(--type-display, clamp(3rem,8vw,7rem)); font-weight:600;">Display</span>
+          </div>
+          <div class="type-row">
+            <span class="token">--type-h1</span>
+            <span class="sample" style="font-size:var(--type-h1, clamp(2.25rem,5vw,4rem)); font-weight:600;">Heading One</span>
+          </div>
+          <div class="type-row">
+            <span class="token">--type-h2</span>
+            <span class="sample" style="font-size:var(--type-h2, clamp(1.75rem,3.4vw,2.75rem)); font-weight:600;">Heading Two</span>
+          </div>
+          <div class="type-row">
+            <span class="token">--type-h3</span>
+            <span class="sample" style="font-size:var(--type-h3, clamp(1.35rem,2.2vw,1.75rem)); font-weight:600;">Heading Three</span>
+          </div>
+          <div class="type-row">
+            <span class="token">--type-body</span>
+            <span class="sample" style="font-size:var(--type-body, 1rem);">Body text — General Sans at 1rem, comfortable leading for long-form reading across all trends.</span>
+          </div>
+          <div class="type-row">
+            <span class="token">--type-small</span>
+            <span class="sample" style="font-size:var(--type-small, 0.875rem);">Small / caption text</span>
+          </div>
+          <div class="type-row">
+            <span class="token">--type-eyebrow</span>
+            <span class="sample" style="font-size:var(--type-eyebrow, 0.75rem); letter-spacing:var(--tracking-eyebrow, 0.22em); font-family:var(--font-mono, monospace);">EYEBROW LABEL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>Jayden Design System · Built with radical restraint · <a href="https://github.com/jayden2610/jayden-design-system" target="_blank">GitHub</a></p>
+</footer>
+
+<script>
+(function() {
+
+/* ===== Data ===== */
+const THEMES = [
+  { id: 'spatial-presence-a', trend: 'Spatial Presence', variant: 'A · Electric Void', desc: '3D Immersive — cold, infinite, machine precision' },
+  { id: 'spatial-presence-b', trend: 'Spatial Presence', variant: 'B · Solar Forge', desc: 'Warm foreground over cool space bg — molten amber' },
+  { id: 'spatial-presence-c', trend: 'Spatial Presence', variant: 'C · Jade Terminal', desc: 'Cool green — bioluminescent, organic precision' },
+  { id: 'liquid-glass-a', trend: 'Liquid Glass', variant: 'A · Morning Gold', desc: 'Warm cinematic — the confirmed default' },
+  { id: 'liquid-glass-b', trend: 'Liquid Glass', variant: 'B · Midnight Indigo', desc: 'Cool evening scene, deep focus, cinematic night' },
+  { id: 'liquid-glass-c', trend: 'Liquid Glass', variant: 'C · Rose Dusk', desc: 'Warm pink, golden hour, intimate/lifestyle' },
+  { id: 'neon-noir-a', trend: 'Neon Noir', variant: 'A · Acid Green', desc: 'Hacker terminal, electric, aggressive precision' },
+  { id: 'neon-noir-b', trend: 'Neon Noir', variant: 'B · Blood Neon', desc: 'Red/magenta, underground rave, dangerous' },
+  { id: 'neon-noir-c', trend: 'Neon Noir', variant: 'C · Arctic Wire', desc: 'Cold blue/white, clean cyberpunk' },
+  { id: 'narrative-motion-a', trend: 'Narrative Motion', variant: 'A · Terracotta Press', desc: 'Warm editorial, ink-and-earth, magazine energy' },
+  { id: 'narrative-motion-b', trend: 'Narrative Motion', variant: 'B · Obsidian Broadsheet', desc: 'Dark night mode editorial, luxury newspaper' },
+  { id: 'narrative-motion-c', trend: 'Narrative Motion', variant: 'C · Risograph Mist', desc: 'Cool toned — Japanese zine, ink overprint' },
+  { id: 'live-interface-a', trend: 'Live Interface', variant: 'A · Dark Emerald', desc: 'Confident SaaS, Stripe/Linear energy' },
+  { id: 'live-interface-b', trend: 'Live Interface', variant: 'B · Light Studio', desc: 'Clean, airy, Figma/Linear light mode' },
+  { id: 'live-interface-c', trend: 'Live Interface', variant: 'C · Amber Command', desc: 'Warm dark — terminal warmth, Raycast energy' },
+  { id: 'open-world-ambient-a', trend: 'Open World Ambient', variant: 'A · LoFi Earth', desc: 'Warm, cozy, StudyWithMe energy' },
+  { id: 'open-world-ambient-b', trend: 'Open World Ambient', variant: 'B · Mountain Dawn', desc: 'Alpine morning, misty, meditative' },
+  { id: 'open-world-ambient-c', trend: 'Open World Ambient', variant: 'C · Sakura Hour', desc: 'Cherry blossom, Japanese afternoon' },
+  { id: 'editorial-print-a', trend: 'Editorial Print', variant: 'A · Terracotta Ukiyo', desc: 'Aged paper, warm terracotta, Neo Mirai' },
+  { id: 'editorial-print-b', trend: 'Editorial Print', variant: 'B · Indigo Woodblock', desc: 'Japanese woodblock blue, Hokusai palette' },
+  { id: 'editorial-print-c', trend: 'Editorial Print', variant: 'C · Night Market', desc: 'Dark editorial — lantern light on black' },
+  { id: 'bento-grid-a', trend: 'Bento Grid', variant: 'A · Clean Light', desc: 'Cool white, electric blue, Vercel energy' },
+  { id: 'bento-grid-b', trend: 'Bento Grid', variant: 'B · Obsidian Grid', desc: 'Dark premium product, Raycast energy' },
+  { id: 'bento-grid-c', trend: 'Bento Grid', variant: 'C · Warm Linen', desc: 'Warm neutral — editorial bento, Apple warmth' },
+  { id: 'resonant-stark-a', trend: 'Resonant Stark', variant: 'A · Paper + Deep Blue', desc: 'Swiss precision, Stripe/healthcare' },
+  { id: 'resonant-stark-b', trend: 'Resonant Stark', variant: 'B · Obsidian + Gold', desc: 'Dark luxury, premium, architectural' },
+  { id: 'resonant-stark-c', trend: 'Resonant Stark', variant: 'C · Chalk + Forest', desc: 'Organic premium, wellness, sustainability' },
+  { id: 'resonant-stark-d', trend: 'Resonant Stark', variant: 'D · Studio Blush', desc: 'Unseen Studio — bold restraint, creative agency' },
+];
+
+const TREND_COLORS = {
+  'spatial-presence': ['oklch(62% 0.20 255)', 'oklch(58% 0.18 295)', 'oklch(72% 0.24 155)'],
+  'liquid-glass': ['oklch(74% 0.12 72)', 'oklch(72% 0.18 255)', 'oklch(70% 0.18 20)'],
+  'neon-noir': ['oklch(90% 0.22 155)', 'oklch(65% 0.28 15)', 'oklch(94% 0.06 220)'],
+  'narrative-motion': ['oklch(58% 0.24 32)', 'oklch(82% 0.16 75)', 'oklch(52% 0.22 255)'],
+  'live-interface': ['oklch(72% 0.17 160)', 'oklch(48% 0.22 255)', 'oklch(74% 0.18 72)'],
+  'open-world-ambient': ['oklch(74% 0.12 72)', 'oklch(78% 0.14 220)', 'oklch(72% 0.16 10)'],
+  'editorial-print': ['oklch(50% 0.18 34)', 'oklch(38% 0.22 255)', 'oklch(72% 0.22 55)'],
+  'bento-grid': ['oklch(52% 0.22 255)', 'oklch(72% 0.17 255)', 'oklch(46% 0.16 30)'],
+  'resonant-stark': ['oklch(38% 0.18 255)', 'oklch(72% 0.12 72)', 'oklch(34% 0.16 155)', 'oklch(85% 0.045 350)'],
+};
+
+const PALETTE_TOKENS = {
+  'spatial-presence-a': ['--bg: oklch(9% 0.012 255)', '--surface: oklch(13% 0.014 255)', '--accent-1: oklch(62% 0.20 255)', '--accent-2: oklch(58% 0.18 295)', '--text: oklch(94% 0.004 255)', '--muted: oklch(50% 0.008 255)'],
+  'spatial-presence-b': ['--bg: oklch(7% 0.010 30)', '--surface: oklch(11% 0.014 30)', '--accent-1: oklch(72% 0.22 55)', '--accent-2: oklch(65% 0.18 32)', '--text: oklch(95% 0.010 72)', '--muted: oklch(52% 0.012 50)'],
+  'spatial-presence-c': ['--bg: oklch(7% 0.008 165)', '--surface: oklch(11% 0.010 165)', '--accent-1: oklch(74% 0.24 155)', '--accent-2: oklch(55% 0.16 175)', '--text: oklch(93% 0.006 165)', '--muted: oklch(48% 0.010 165)'],
+  'liquid-glass-a': ['--bg-fallback: oklch(15% 0.008 70)', '--text: oklch(92% 0.018 75)', '--accent: oklch(74% 0.12 72)', '--accent-pale: oklch(82% 0.07 72)', '--accent-deep: oklch(61% 0.09 72)', '--muted: oklch(92% 0.018 75 / 0.6)'],
+  'liquid-glass-b': ['--bg-fallback: oklch(10% 0.015 260)', '--text: oklch(94% 0.010 240)', '--accent: oklch(72% 0.18 255)', '--accent-pale: oklch(82% 0.10 255)', '--accent-deep: oklch(52% 0.16 270)', '--muted: oklch(94% 0.010 240 / 0.55)'],
+  'liquid-glass-c': ['--bg-fallback: oklch(14% 0.012 10)', '--text: oklch(96% 0.008 30)', '--accent: oklch(70% 0.18 20)', '--accent-pale: oklch(84% 0.10 20)', '--accent-deep: oklch(52% 0.16 15)', '--muted: oklch(96% 0.008 30 / 0.55)'],
+  'neon-noir-a': ['--bg: oklch(5% 0.004 280)', '--surface: oklch(8% 0.005 280)', '--neon: oklch(90% 0.22 155)', '--neon-blue: oklch(85% 0.18 205)', '--text: oklch(91% 0.006 240)', '--muted: oklch(45% 0.008 240)'],
+  'neon-noir-b': ['--bg: oklch(5% 0.006 10)', '--surface: oklch(8% 0.008 10)', '--neon: oklch(65% 0.28 15)', '--neon-blue: oklch(72% 0.22 340)', '--text: oklch(93% 0.006 20)', '--muted: oklch(44% 0.010 20)'],
+  'neon-noir-c': ['--bg: oklch(6% 0.010 230)', '--surface: oklch(10% 0.012 230)', '--neon: oklch(94% 0.06 220)', '--neon-blue: oklch(76% 0.20 220)', '--text: oklch(95% 0.004 220)', '--muted: oklch(48% 0.010 220)'],
+  'narrative-motion-a': ['--bg: oklch(98% 0.002 90)', '--ink: oklch(10% 0.004 90)', '--accent: oklch(58% 0.24 32)', '--accent-2: oklch(52% 0.22 255)', '--surface: oklch(93% 0.008 90)'],
+  'narrative-motion-b': ['--bg: oklch(10% 0.008 60)', '--ink: oklch(94% 0.010 80)', '--accent: oklch(82% 0.16 75)', '--accent-2: oklch(65% 0.22 255)', '--surface: oklch(15% 0.010 60)'],
+  'narrative-motion-c': ['--bg: oklch(95% 0.008 240)', '--ink: oklch(12% 0.010 240)', '--accent: oklch(52% 0.22 255)', '--accent-2: oklch(62% 0.18 32)', '--surface: oklch(90% 0.010 240)'],
+  'live-interface-a': ['--bg: oklch(10% 0.015 255)', '--surface: oklch(14% 0.012 255)', '--border: oklch(20% 0.010 255)', '--accent: oklch(72% 0.17 160)', '--text: oklch(97% 0.004 255)', '--muted: oklch(63% 0.008 255)'],
+  'live-interface-b': ['--bg: oklch(98% 0.004 240)', '--surface: oklch(100% 0 0)', '--border: oklch(88% 0.006 240)', '--accent: oklch(48% 0.22 255)', '--text: oklch(10% 0.008 255)', '--muted: oklch(55% 0.008 255)'],
+  'live-interface-c': ['--bg: oklch(9% 0.010 50)', '--surface: oklch(13% 0.012 50)', '--border: oklch(20% 0.010 50)', '--accent: oklch(74% 0.18 72)', '--text: oklch(96% 0.008 70)', '--muted: oklch(58% 0.010 60)'],
+  'open-world-ambient-a': ['--text: oklch(92% 0.018 75)', '--accent: oklch(74% 0.12 72)', '--accent-pale: oklch(82% 0.07 72)', '--accent-cool: oklch(80% 0.08 220)', '--text-muted: oklch(92% 0.018 75 / 0.6)'],
+  'open-world-ambient-b': ['--text: oklch(96% 0.006 220)', '--accent: oklch(78% 0.14 220)', '--accent-pale: oklch(88% 0.08 220)', '--accent-cool: oklch(62% 0.16 250)', '--text-muted: oklch(96% 0.006 220 / 0.55)'],
+  'open-world-ambient-c': ['--text: oklch(96% 0.008 20)', '--accent: oklch(72% 0.16 10)', '--accent-pale: oklch(86% 0.08 15)', '--accent-cool: oklch(80% 0.10 350)', '--text-muted: oklch(96% 0.008 20 / 0.55)'],
+  'editorial-print-a': ['--paper: oklch(91% 0.028 82)', '--ink: oklch(14% 0.006 80)', '--accent: oklch(50% 0.18 34)', '--accent-2: oklch(72% 0.12 76)', '--muted: oklch(52% 0.020 72)'],
+  'editorial-print-b': ['--paper: oklch(94% 0.012 240)', '--ink: oklch(12% 0.012 250)', '--accent: oklch(38% 0.22 255)', '--accent-2: oklch(70% 0.14 255)', '--muted: oklch(50% 0.016 245)'],
+  'editorial-print-c': ['--paper: oklch(10% 0.012 50)', '--ink: oklch(94% 0.016 75)', '--accent: oklch(72% 0.22 55)', '--accent-2: oklch(58% 0.18 32)', '--muted: oklch(55% 0.014 60)'],
+  'bento-grid-a': ['--bg: oklch(97% 0.004 255)', '--surface: oklch(100% 0 0)', '--accent: oklch(52% 0.22 255)', '--ink: oklch(10% 0.008 255)', '--muted: oklch(58% 0.010 255)', '--border: oklch(88% 0.006 255)'],
+  'bento-grid-b': ['--bg: oklch(9% 0.012 255)', '--surface: oklch(13% 0.010 255)', '--accent: oklch(72% 0.17 255)', '--ink: oklch(96% 0.004 255)', '--muted: oklch(55% 0.008 255)', '--border: oklch(22% 0.010 255)'],
+  'bento-grid-c': ['--bg: oklch(97% 0.006 80)', '--surface: oklch(100% 0 0)', '--accent: oklch(46% 0.16 30)', '--ink: oklch(10% 0.006 60)', '--muted: oklch(56% 0.008 70)', '--border: oklch(88% 0.008 80)'],
+  'resonant-stark-a': ['--bg: oklch(98% 0.003 90)', '--ink: oklch(10% 0.004 255)', '--muted: oklch(55% 0.006 255)', '--border: oklch(88% 0.006 255)', '--accent: oklch(38% 0.18 255)'],
+  'resonant-stark-b': ['--bg: oklch(8% 0.006 255)', '--ink: oklch(94% 0.004 255)', '--muted: oklch(52% 0.008 255)', '--border: oklch(18% 0.010 255)', '--accent: oklch(72% 0.12 72)'],
+  'resonant-stark-c': ['--bg: oklch(97% 0.005 100)', '--ink: oklch(11% 0.008 140)', '--muted: oklch(52% 0.010 140)', '--border: oklch(86% 0.010 100)', '--accent: oklch(34% 0.16 155)'],
+  'resonant-stark-d': ['--bg: oklch(8% 0.004 320)', '--ink: oklch(96% 0.020 350)', '--muted: oklch(50% 0.012 320)', '--border: oklch(20% 0.008 320)', '--accent: oklch(85% 0.045 350)'],
+};
+
+/* ===== Get current theme from URL hash ===== */
+function getThemeFromHash() {
+  const hash = location.hash.replace('#', '');
+  if (hash && THEMES.some(t => t.id === hash)) return hash;
+  return 'liquid-glass-a';
+}
+
+let currentTheme = getThemeFromHash();
+
+/* ===== DOM refs ===== */
+const html = document.documentElement;
+const select = document.getElementById('themeSelect');
+const label = document.getElementById('themeLabel');
+const trendGrid = document.getElementById('trendGrid');
+const paletteGrid = document.getElementById('paletteGrid');
+const paletteDesc = document.getElementById('paletteDesc');
+
+/* ===== Apply theme ===== */
+function applyTheme(themeId) {
+  currentTheme = themeId;
+  const theme = THEMES.find(t => t.id === themeId);
+  if (!theme) return;
+
+  /* Remove all trend classes */
+  html.className = '';
+  html.classList.add(themeId);
+
+  /* Update UI */
+  select.value = themeId;
+  label.textContent = theme.trend + ' · ' + theme.variant.replace(/^[A-Z] · /, '');
+  location.hash = themeId;
+
+  /* Update palette */
+  renderPalette(themeId);
+
+  /* Update trend card active states */
+  document.querySelectorAll('.trend-card').forEach(card => {
+    card.classList.toggle('active', card.dataset.theme === themeId);
+  });
+
+  /* Update variant tabs */
+  document.querySelectorAll('.variant-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.theme === themeId);
+  });
+}
+
+/* ===== Render palette ===== */
+function renderPalette(themeId) {
+  const tokens = PALETTE_TOKENS[themeId];
+  if (!tokens) { paletteGrid.innerHTML = ''; return; }
+
+  paletteGrid.innerHTML = tokens.map(t => {
+    const [name, value] = t.split(': ');
+    const cleanedVal = value.replace(/\/.*\)/, ')').replace(/\s*\/\s*[\d.]+/, '');
+    return `<div class="palette-swatch" style="background:${cleanedVal}; color:${cleanedVal};">
+      <div style="background:var(--bg-fallback,var(--bg,#000)); border-radius:6px; padding:8px 10px; margin-bottom:4px;">
+        <div class="name">${name.replace('--', '')}</div>
+        <div class="value">${value}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ===== Render trend grid ===== */
+function renderTrends() {
+  const trends = {};
+  THEMES.forEach(t => {
+    const trendName = t.trend;
+    if (!trends[trendName]) trends[trendName] = [];
+    trends[trendName].push(t);
+  });
+
+  trendGrid.innerHTML = Object.entries(trends).map(([name, variants]) => {
+    const colors = TREND_COLORS[name.toLowerCase().replace(/ /g, '-')] || ['#666','#666','#666'];
+    const activeVariant = variants.find(v => v.id === currentTheme) || variants[0];
+
+    return `<div class="trend-card ${activeVariant.id === currentTheme ? 'active' : ''}" data-theme="${activeVariant.id}">
+      <div class="swatch">${colors.slice(0,3).map(c => `<span style="background:${c}"></span>`).join('')}</div>
+      <div class="variant-label">${variants.length} variant${variants.length > 1 ? 's' : ''}</div>
+      <h3>${name}</h3>
+      <div class="variant-tabs">
+        ${variants.map(v => `<button class="variant-tab ${v.id === currentTheme ? 'active' : ''}" data-theme="${v.id}">${v.variant.charAt(0)}</button>`).join('')}
+      </div>
+      <p>${variants.find(v => v.id === currentTheme)?.desc || variants[0].desc}</p>
+    </div>`;
+  }).join('');
+
+  /* Attach click handlers */
+  document.querySelectorAll('.trend-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.variant-tab')) return;
+      applyTheme(card.dataset.theme);
+    });
+  });
+  document.querySelectorAll('.variant-tab').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.stopPropagation();
+      applyTheme(tab.dataset.theme);
+    });
+  });
+}
+
+/* ===== Scroll reveal ===== */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ===== Init ===== */
+function init() {
+  /* Populate select */
+  THEMES.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.id;
+    opt.textContent = t.trend + ' — ' + t.variant;
+    select.appendChild(opt);
+  });
+
+  select.addEventListener('change', () => applyTheme(select.value));
+
+  /* Mark sections for reveal */
+  document.querySelectorAll('section + section').forEach(s => s.classList.add('reveal'));
+
+  renderTrends();
+  applyTheme(currentTheme);
+
+  /* Re-render trends on theme change to update descriptions */
+  const origApply = applyTheme;
+  applyTheme = function(themeId) {
+    origApply(themeId);
+    renderTrends();
+  };
+  applyTheme(currentTheme);
+}
+
+init();
+
+})();
+</script>
+</body>
+</html>
