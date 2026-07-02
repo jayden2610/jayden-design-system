@@ -1,137 +1,110 @@
 ---
 version: alpha
-name: "Open World Ambient"
-description: >
-  Jayden Design System — Cinematic Scene + Floating UI. Ambient glass panels
-  over full-screen video or 3D scenes. Apply class `open-world-ambient-a` on <html>.
+name: Open World Ambient
+description: "Cinematic Scene + Floating UI — ambient glass panels over full-screen video or 3D scenes. Glassmorphism focused. Apply class `open-world-ambient-a`, `open-world-ambient-b`, or `open-world-ambient-c` on `<html>`."
 colors:
   text: "oklch(92% 0.018 75)"
   text_strong: "oklch(99% 0 0)"
   text_muted: "oklch(92% 0.018 75 / 0.6)"
-  glass: "rgba(255,255,255,0.18)"
-  glass_border: "rgba(255,255,255,0.18)"
+  glass: rgba(255,255,255,0.18)
+  glass_border: rgba(255,255,255,0.18)
   accent: "oklch(74% 0.12 72)"
   accent_pale: "oklch(82% 0.07 72)"
   accent_cool: "oklch(80% 0.08 220)"
+  primary: "{colors.accent}"
 typography:
-  display:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "clamp(3rem, 8vw, 7rem)"
+  h1:
+    fontFamily: General Sans
+    fontSize: 2.5rem
     fontWeight: 700
     lineHeight: 1.05
     letterSpacing: "-0.02em"
-  h1:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "clamp(2.25rem, 5vw, 4rem)"
-    fontWeight: 600
-    lineHeight: 1.2
-  h2:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "clamp(1.75rem, 3.4vw, 2.75rem)"
-    fontWeight: 600
-    lineHeight: 1.2
-  body:
-    fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "1rem"
+  body-md:
+    fontFamily: General Sans
+    fontSize: 1rem
+    fontWeight: 400
     lineHeight: 1.6
-  small:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "0.875rem"
   eyebrow:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
-    fontSize: "0.75rem"
+    fontFamily: JetBrains Mono
+    fontSize: 0.75rem
     fontWeight: 500
     letterSpacing: "0.22em"
     textTransform: uppercase
-  mono:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
-    fontSize: "0.875rem"
 rounded:
-  sm: "8px"
-  md: "16px"
-  card-max: "20px"
-  full: "999px"
+  sm: 8px
+  md: 16px
+  lg: 20px
 spacing:
-  xs: "4px"
-  sm: "8px"
-  md: "16px"
-  lg: "24px"
-  xl: "32px"
-  2xl: "48px"
-  3xl: "64px"
+  sm: 8px
+  md: 16px
+  lg: 24px
 components:
   button-primary:
-    backgroundColor: "oklch(74% 0.12 72)"
-    color: "oklch(99% 0 0)"
+    backgroundColor: "{colors.primary}"
+    textColor: "#FFFFFF"
     rounded: "999px"
     padding: 12px 24px
-    fontFamily: General Sans
-    fontWeight: 600
-  button-secondary:
-    backgroundColor: "transparent"
-    color: "oklch(92% 0.018 75)"
-    rounded: "999px"
-    border: 1px solid rgba(255,255,255,0.18)
-    padding: 12px 24px
-  glass-panel:
-    backgroundColor: "rgba(255,255,255,0.18)"
-    backdropFilter: "blur(52px) saturate(220%)"
-    border: 1px solid rgba(255,255,255,0.18)
-    rounded: "20px"
-    boxShadow: "0 8px 32px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.35)"
-    textColor: "oklch(92% 0.018 75)"
-  card:
-    backgroundColor: "transparent"
-    color: "oklch(92% 0.018 75)"
-    rounded: "16px"
-    padding: 24px
 ---
 
 ## Overview
 
-The **Open World Ambient** trend in the Jayden Design System. Cinematic Scene + Floating UI — ambient glass panels over full-screen video or 3D scenes.
+Cinematic scene with floating UI — ambient glass panels over full-screen video or 3D scenes. StudyWithMe energy: cozy, immersive, warm. Glass is the primary surface language with 52px blur on floating panels.
 
-Cinematic, cozy, ambient scene. Floating glass panels over full-screen cinematic video or 3D scenes. The glass is intentionally translucent — the scene is the hero. Use `.ambient-panel` for the main floating UI.
+**Activation:** Apply class `open-world-ambient-a`, `open-world-ambient-b`, or `open-world-ambient-c` on `<html>`.
 
-Apply the CSS class on `<html>`. 3 variants available.
+**Tone:** Cozy ambient — lofi earth, alpine morning, or sakura afternoon.
 
-### Variants
-
-| Variant Class | Name | Description | Key Colors |
-|---|---|---|---|
-| `open-world-ambient-a` | **Lofi Earth** | Warm, cozy, StudyWithMe energy. Confirmed taste. | `--accent`: `oklch(74% 0.12 72)`, `--glass`: `rgba(255,255,255,0.18)` |
-| `open-world-ambient-b` | **Mountain Dawn** | Alpine morning, misty, meditative. Ice-blue glass. | `--accent`: `oklch(78% 0.14 220)`, `--glass`: `rgba(200,220,255,0.13)` |
-| `open-world-ambient-c` | **Sakura Hour** | Cherry blossom, Japanese afternoon, soft luxury. | `--accent`: `oklch(72% 0.16 10)`, `--glass`: `rgba(255,220,225,0.15)` |
-
----
+**Class format:** `open-world-ambient-{variant}`
 
 ## Colors
 
-Text is always light against the cinematic scene. Glass panels are translucent white/blue/pink tinted to match the scene temperature. Accent is warm gold by default.
+The YAML frontmatter represents the primary variant (`a`). This trend has 3 variants:
 
----
+| Variant | Name | Description |
+|---------|------|-------------|
+| a | Lofi Earth | Warm, cozy, StudyWithMe energy. Jayden's confirmed taste. Warm gold glass. |
+| b | Mountain Dawn | Alpine morning, misty, meditative. Ice-blue tinted glass. Pairs with mountain/forest video. |
+| c | Sakura Hour | Cherry blossom, Japanese afternoon, soft luxury. Rose-tinted glass over warm spring scene. |
+
+All color values use OKLCH for perceptual uniformity. Components read semantic tokens (`--bg`, `--surface`, `--accent`, `--text`, `--muted`, `--border`) set by the active variant class.
 
 ## Typography
 
-General Sans for display and UI. Newsreader serif for body warmth. High contrast text on glass — always ≥ 4.5:1.
+Fonts are provided by the shared type layer. Display type uses a fluid `clamp()` scale at runtime; the YAML shows the midpoint. Body sits at `1rem`. Mono eyebrows run uppercase with 0.22em tracking on JetBrains Mono.
 
----
+## Layout
 
-## Glass
-
-Deep blur (52px) on the main floating panel — `.ambient-panel` or `.glass-deep`. Secondary elements use `.glass` (20px blur). The scene behind IS the background.
-
----
+Spacing follows an 8-point grid scale (`--space-1` through `--space-8`). Radii are capped at `--radius-card-max: 20px` for non-pill elements. Layout uses CSS Grid with container queries where supported.
 
 ## Components
 
-All token-driven. Glass panels float over full-screen scene.
+Components are token-driven — they read CSS custom properties set by the active trend class. React primitives (Button, Card, Badge) are available in `components/core/` with full TypeScript definitions.
 
----
+CSS classes (`.btn`, `.card`, `.glass`) apply styles from the active theme. See `design-tokens.json` `components` for full prop specs and variant documentation.
+### Glass System (2026 Restraint Rule)
+
+Glass is for floating/overlay elements only — nav, modals, popovers, a single hero panel. Content surfaces sit on solid backgrounds. Blur signals z-hierarchy: deeper blur = higher layer.
+
+| Class | Usage | Blur | Background |
+|-------|-------|------|------------|
+| `.glass` | Default floating elements | 20px | `rgba(255,255,255,0.14)` |
+| `.glass-deep` | Single topmost element | 52px | `rgba(255,255,255,0.18)` |
+| `.glass-dense` | When text needs reliable opaque backing | 32px | `rgba(255,255,255,0.42)` |
+
+Every glass surface must clear 4.5:1 text contrast. If the scene breaks that, use `.glass-dense` — don't lower the blur.
 
 ## Do's and Don'ts
 
-- **Do** pair with full-screen video or 3D scene behind glass.
-- **Do** use `.ambient-panel` for the main floating UI surface.
-- **Don't** put glass on every element — let the scene breathe.
-- **Don't** use CSS-only backgrounds — real video/scene only.
+- **Do** use `.ambient-panel` (52px blur) for floating UI over the scene.
+- **Do** pair with real video or 3D backgrounds, never CSS-only scenes.
+- **Don't** use solid opaque panels — glass is the surface language here.
+- **Don't** let text contrast fall below 4.5:1 on glass.
+
+- **Do** follow the pre-build gate in `GUIDELINES.md` before starting any design.
+- **Do** use real content — no placeholder copy ever.
+- **Don't** mix tokens from different trends or variants on the same page.
+- **Don't** use raw hex values — always reference the semantic tokens.
+
+---
+
+*Generated from `design-tokens.json`. Canonical source: `github.com/jayden2610/jayden-design-system`.*

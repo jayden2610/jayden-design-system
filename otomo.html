@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" class="resonant-stark-d">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Otomo — Motion · Brand · Spatial</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ── Reset ── */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { cursor: none; }
+  body {
+    background: var(--bg);
+    color: var(--muted);
+    font-family: var(--font-sans);
+    font-size: var(--type-body);
+    line-height: var(--leading-normal);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  button, a, .project-card { cursor: none; }
+
+  /* ── Custom Cursor ── */
+  #cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out),
+                background 0.3s var(--ease-out);
+    mix-blend-mode: difference;
+  }
+  #cursor.is-hovering {
+    width: 24px; height: 24px;
+    background: var(--ink);
+  }
+  #cursor.is-hidden {
+    opacity: 0;
+  }
+
+  /* ── Personality Loader ── */
+  #loader {
+    position: fixed; inset: 0;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10000;
+    pointer-events: none;
+  }
+  #loader .blob {
+    width: 32px; height: 32px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0;
+  }
+
+  /* ── Navigation ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: var(--space-6) var(--space-7);
+    z-index: 100;
+    mix-blend-mode: difference;
+  }
+  nav .logo {
+    font-family: var(--font-sans);
+    font-size: var(--type-h3);
+    font-weight: var(--weight-semibold);
+    color: var(--ink);
+    letter-spacing: var(--tracking-tight);
+  }
+  nav .nav-items {
+    display: flex; gap: var(--space-6);
+    list-style: none;
+  }
+  nav .nav-items li {
+    clip-path: inset(0 100% 0 0);
+  }
+  nav .nav-items a {
+    font-family: var(--font-mono);
+    font-size: var(--type-eyebrow);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.7;
+    transition: opacity 0.3s var(--ease-out);
+  }
+  nav .nav-items a:hover { opacity: 1; }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: var(--space-8) var(--space-7);
+    position: relative;
+  }
+  .hero .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--type-eyebrow);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: var(--space-3);
+  }
+  .hero h1 {
+    font-family: var(--font-sans);
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    color: var(--ink);
+    max-width: 12ch;
+  }
+  .hero .tagline {
+    font-family: var(--font-sans);
+    font-size: var(--type-lead);
+    color: var(--muted);
+    max-width: 50ch;
+    margin-top: var(--space-5);
+    line-height: var(--leading-normal);
+  }
+
+  /* ── Project Grid ── */
+  .projects {
+    padding: var(--space-8) var(--space-7);
+  }
+  .projects-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: var(--space-7);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--space-4);
+  }
+  .projects-header .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--type-eyebrow);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .projects-header .count {
+    font-family: var(--font-mono);
+    font-size: var(--type-small);
+    color: var(--muted);
+  }
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+  }
+  .project-card {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--border);
+    border: none;
+    outline: none;
+  }
+  .project-card .project-image {
+    width: 100%; height: 100%;
+    transition: transform 0.6s var(--ease-out);
+  }
+  .project-card:hover .project-image {
+    transform: scale(1.06);
+  }
+  .project-card .overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: var(--space-5);
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-out);
+  }
+  .project-card:hover .overlay {
+    opacity: 1;
+  }
+  .project-card .overlay .project-title {
+    font-family: var(--font-sans);
+    font-size: var(--type-h3);
+    font-weight: var(--weight-semibold);
+    color: var(--ink);
+    letter-spacing: var(--tracking-tight);
+  }
+  .project-card .overlay .project-category {
+    font-family: var(--font-mono);
+    font-size: var(--type-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: var(--space-1);
+  }
+
+  /* ── About / Colophon ── */
+  .about {
+    padding: var(--space-8) var(--space-7);
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+  .about h2 {
+    font-family: var(--font-sans);
+    font-size: var(--type-display);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    color: var(--ink);
+  }
+  .about h2 .accent-word {
+    color: var(--accent);
+  }
+  .about .bio p {
+    color: var(--muted);
+    font-size: var(--type-body);
+    line-height: var(--leading-normal);
+    max-width: 50ch;
+  }
+  .about .bio p + p {
+    margin-top: var(--space-4);
+  }
+  .about .services {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    align-content: start;
+  }
+  .about .services .service h3 {
+    font-family: var(--font-mono);
+    font-size: var(--type-eyebrow);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+  }
+  .about .services .service p {
+    font-family: var(--font-sans);
+    font-size: var(--type-small);
+    color: var(--muted);
+  }
+
+  /* ── Footer ── */
+  footer {
+    padding: var(--space-6) var(--space-7);
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer .copyright {
+    font-family: var(--font-mono);
+    font-size: var(--type-small);
+    color: var(--muted);
+  }
+  footer .social {
+    display: flex; gap: var(--space-5);
+  }
+  footer .social a {
+    font-family: var(--font-mono);
+    font-size: var(--type-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.3s var(--ease-out);
+  }
+  footer .social a:hover { color: var(--ink); }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    nav { padding: var(--space-4) var(--space-5); }
+    nav .nav-items { display: none; }
+    .hero { padding: var(--space-5); min-height: 80vh; }
+    .hero h1 { font-size: clamp(2.5rem, 12vw, 4rem); }
+    .projects { padding: var(--space-6) var(--space-5); }
+    .project-grid { grid-template-columns: repeat(2, 1fr); }
+    .about {
+      grid-template-columns: 1fr;
+      padding: var(--space-6) var(--space-5);
+      gap: var(--space-6);
+    }
+    .about .services { grid-template-columns: 1fr 1fr; }
+    footer {
+      flex-direction: column; gap: var(--space-4);
+      padding: var(--space-5);
+      align-items: flex-start;
+    }
+  }
+  @media (max-width: 480px) {
+    .project-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="blob"></div>
+</div>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+
+<!-- Navigation -->
+<nav>
+  <span class="logo">Otomo</span>
+  <ul class="nav-items">
+    <li><a href="#" data-nav>Work</a></li>
+    <li><a href="#" data-nav>About</a></li>
+    <li><a href="#" data-nav>Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <p class="eyebrow">Motion · Brand · Spatial</p>
+  <h1>Otomo</h1>
+  <p class="tagline">
+    A multi-disciplinary creative studio working at the intersection of motion design,
+    brand identity, and spatial experience. Based in Singapore, working worldwide.
+  </p>
+</section>
+
+<!-- Projects -->
+<section class="projects" id="work">
+  <div class="projects-header">
+    <span class="eyebrow">Selected Work</span>
+    <span class="count">06</span>
+  </div>
+  <div class="project-grid">
+    <div class="project-card">
+      <div class="project-image" style="background:oklch(16% 0.008 330);"></div>
+      <div class="overlay">
+        <span class="project-title">Shun</span>
+        <span class="project-category">Motion Identity</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-image" style="background:oklch(18% 0.012 300);"></div>
+      <div class="overlay">
+        <span class="project-title">Kai</span>
+        <span class="project-category">Spatial Installation</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-image" style="background:oklch(15% 0.010 280);"></div>
+      <div class="overlay">
+        <span class="project-title">Rin</span>
+        <span class="project-category">Brand Identity</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-image" style="background:oklch(17% 0.008 260);"></div>
+      <div class="overlay">
+        <span class="project-title">Sora</span>
+        <span class="project-category">Digital Experience</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-image" style="background:oklch(14% 0.012 240);"></div>
+      <div class="overlay">
+        <span class="project-title">Hana</span>
+        <span class="project-category">Brand Campaign</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-image" style="background:oklch(16% 0.006 220);"></div>
+      <div class="overlay">
+        <span class="project-title">Tsuki</span>
+        <span class="project-category">Book Design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="bio">
+    <h2>
+      We make things<br>
+      <span class="accent-word">move.</span>
+    </h2>
+    <p>
+      Founded in 2020, Otomo is a studio built around the belief that motion
+      is the most direct way to make people feel something. We design identities
+      that live in time — brand films, spatial installations, digital experiences,
+      and printed matter that refuses to sit still.
+    </p>
+    <p>
+      Our work has been recognised by ADC Awards, D&AD, and the Tokyo Type
+      Directors Club. We collaborate with cultural institutions, independent
+      brands, and people who care about craft.
+    </p>
+  </div>
+  <div class="services">
+    <div class="service">
+      <h3>Motion</h3>
+      <p>Brand films, typographic animation, title sequences, explainers, and generative motion systems.</p>
+    </div>
+    <div class="service">
+      <h3>Brand</h3>
+      <p>Identity design, visual language, art direction, and brand guidelines for culture-driven clients.</p>
+    </div>
+    <div class="service">
+      <h3>Spatial</h3>
+      <p>Exhibition design, immersive environments, installation direction, and spatial branding.</p>
+    </div>
+    <div class="service">
+      <h3>Digital</h3>
+      <p>Interactive experiences, website design, prototyping, and digital brand presences.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <span class="copyright">© 2026 Otomo Studio</span>
+  <div class="social">
+    <a href="#">Instagram</a>
+    <a href="#">Vimeo</a>
+    <a href="#">Are.na</a>
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  const cursor = document.getElementById('cursor');
+  const loader = document.getElementById('loader');
+  const blob = loader.querySelector('.blob');
+
+  /* ── Personality Loader ── */
+  // The blob enters small, overshoots a wobble, settles
+  const loadTimeline = [
+    // First a tiny pause to build anticipation
+    { target: blob, props: { opacity: 0, scale: 0 }, at: 0 },
+    // Pop in with a wobble — overshoot and correct
+    { target: blob, props: { opacity: 1, scale: 1 }, at: 0.15 },
+  ];
+
+  blob.animate([
+    { opacity: 0, transform: 'scale(0) rotate(0deg)' },
+    { opacity: 1, transform: 'scale(1.25) rotate(12deg)', offset: 0.4 },
+    { opacity: 1, transform: 'scale(0.90) rotate(-4deg)', offset: 0.65 },
+    { opacity: 1, transform: 'scale(1.05) rotate(2deg)', offset: 0.82 },
+    { opacity: 1, transform: 'scale(1) rotate(0deg)' },
+  ], {
+    duration: 900,
+    easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+    fill: 'forwards',
+  }).finished.then(() => {
+    // Fade out the loader
+    loader.animate([
+      { opacity: 1 },
+      { opacity: 0 },
+    ], { duration: 400, easing: 'ease-out', fill: 'forwards' }).finished.then(() => {
+      loader.style.display = 'none';
+    });
+  });
+
+  /* ── Nav Stagger ── */
+  const navItems = document.querySelectorAll('[data-nav]');
+  setTimeout(() => {
+    navItems.forEach((item, i) => {
+      const parent = item.closest('li');
+      if (!parent) return;
+      parent.animate([
+        { clipPath: 'inset(0 100% 0 0)' },
+        { clipPath: 'inset(0 0% 0 0)' },
+      ], {
+        duration: 500,
+        delay: 400 + i * 80,
+        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        fill: 'forwards',
+      });
+    });
+  }, 100);
+
+  /* ── Custom Cursor ── */
+  let cursorX = 0, cursorY = 0;
+  let currentX = 0, currentY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    cursorX = e.clientX;
+    cursorY = e.clientY;
+    cursor.classList.remove('is-hidden');
+  });
+
+  document.addEventListener('mouseleave', () => {
+    cursor.classList.add('is-hidden');
+  });
+
+  // Smooth follow with slight lag
+  function tickCursor() {
+    currentX += (cursorX - currentX) * 0.12;
+    currentY += (cursorY - currentY) * 0.12;
+    cursor.style.left = currentX + 'px';
+    cursor.style.top = currentY + 'px';
+    requestAnimationFrame(tickCursor);
+  }
+  tickCursor();
+
+  // Hover effect on interactive elements
+  const hoverables = document.querySelectorAll('a, button, .project-card, .logo');
+  hoverables.forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('is-hovering'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('is-hovering'));
+  });
+
+  /* ── Smooth project card reveal on scroll ── */
+  const cards = document.querySelectorAll('.project-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.animate([
+          { opacity: 0, transform: 'translateY(24px)' },
+          { opacity: 1, transform: 'translateY(0)' },
+        ], { duration: 500, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  cards.forEach(card => {
+    card.style.opacity = '0';
+    observer.observe(card);
+  });
+
+  /* ── Smooth scroll to sections ── */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+})();
+</script>
+</body>
+</html>

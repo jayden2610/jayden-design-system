@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="bento-grid-a">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Patterns — Jayden Design System Library</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+    .theme-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:10px;padding:10px 24px;background:rgba(0,0,0,0.6);backdrop-filter:blur(12px);font-size:.8rem}
+    .theme-bar select{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:4px 12px;font-size:.75rem;cursor:pointer}
+    .pattern{padding:60px 0;border-bottom:1px solid var(--border)}
+    .pattern-label{font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:0.22em;color:var(--muted);padding:0 48px;margin-bottom:24px}
+    .container{max-width:1200px;margin:0 auto;padding:0 48px}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;transition:transform .2s,box-shadow .2s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,0,0,0.12)}
+    .card h3{font-size:1.1rem;font-weight:var(--weight-semibold);margin-bottom:8px}
+    .card p{color:var(--muted);font-size:.9rem;line-height:1.6}
+    .card .icon{width:40px;height:40px;border-radius:10px;background:var(--accent);opacity:.15;margin-bottom:16px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    @media(max-width:768px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.container,.pattern-label{padding-left:24px;padding-right:24px}}
+  </style>
+</head>
+<body>
+  <div class="theme-bar">
+    <select onchange="document.documentElement.className=this.value">
+      <option value="bento-grid-a" selected>Bento Grid — Clean Light</option>
+      <option value="bento-grid-b">Bento Grid — Obsidian</option>
+      <option value="live-interface-a">Live Interface — Dark Emerald</option>
+      <option value="resonant-stark-a">Resonant Stark — Paper + Blue</option>
+    </select>
+    <span>Card Patterns — UI Library</span>
+  </div>
+
+  <div style="padding-top:60px"></div>
+
+  <!-- 3-Column Feature Cards -->
+  <section class="pattern">
+    <div class="pattern-label">01 · 3-Column feature cards</div>
+    <div class="container">
+      <div class="grid-3">
+        <div class="card"><div class="icon"></div><h3>Real-time sync</h3><p>Changes propagate across your team in milliseconds. No refresh needed.</p></div>
+        <div class="card"><div class="icon"></div><h3>Version history</h3><p>Every edit is tracked. Roll back to any point with a single click.</p></div>
+        <div class="card"><div class="icon"></div><h3>Role-based access</h3><p>Granular permissions so the right people see the right things.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2-Column Image Cards -->
+  <section class="pattern">
+    <div class="pattern-label">02 · 2-Column image cards</div>
+    <div class="container">
+      <div class="grid-2">
+        <div class="card" style="padding:0;overflow:hidden">
+          <div style="aspect-ratio:16/9;background:var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted)">Image</div>
+          <div style="padding:24px"><h3>Design system workshop</h3><p>Learn how to build and maintain a design system that scales across products and teams.</p></div>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden">
+          <div style="aspect-ratio:16/9;background:var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted)">Image</div>
+          <div style="padding:24px"><h3>Motion design fundamentals</h3><p>Master the principles of animation for interfaces — timing, easing, and purpose.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4-Column Stat Cards -->
+  <section class="pattern">
+    <div class="pattern-label">03 · 4-Column stat cards</div>
+    <div class="container">
+      <div class="grid-4">
+        <div class="card" style="text-align:center"><div style="font-family:var(--font-display);font-size:2.5rem;font-weight:var(--weight-bold);color:var(--accent)">99.9%</div><p style="margin-top:4px">Uptime SLA</p></div>
+        <div class="card" style="text-align:center"><div style="font-family:var(--font-display);font-size:2.5rem;font-weight:var(--weight-bold);color:var(--accent)">12ms</div><p style="margin-top:4px">Avg latency</p></div>
+        <div class="card" style="text-align:center"><div style="font-family:var(--font-display);font-size:2.5rem;font-weight:var(--weight-bold);color:var(--accent)">50K+</div><p style="margin-top:4px">Teams</p></div>
+        <div class="card" style="text-align:center"><div style="font-family:var(--font-display);font-size:2.5rem;font-weight:var(--weight-bold);color:var(--accent)">140+</div><p style="margin-top:4px">Countries</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Cards -->
+  <section class="pattern">
+    <div class="pattern-label">04 · Testimonial cards</div>
+    <div class="container">
+      <div class="grid-3">
+        <div class="card"><p style="font-size:1rem;line-height:1.7;margin-bottom:16px">"Switching to this platform cut our design-to-dev handoff time by 60%. The token system alone was worth the migration."</p><div style="font-weight:var(--weight-semibold);font-size:.9rem">Sarah Chen</div><div style="color:var(--muted);font-size:.8rem">Design Lead, Meridian</div></div>
+        <div class="card"><p style="font-size:1rem;line-height:1.7;margin-bottom:16px">"Finally, a design tool that understands code. Our engineers actually enjoy using the output."</p><div style="font-weight:var(--weight-semibold);font-size:.9rem">Marcus Webb</div><div style="color:var(--muted);font-size:.8rem">CTO, Atlas Health</div></div>
+        <div class="card"><p style="font-size:1rem;line-height:1.7;margin-bottom:16px">"We shipped our rebrand in 3 weeks instead of 3 months. The design system scaled perfectly across 12 products."</p><div style="font-weight:var(--weight-semibold);font-size:.9rem">Priya Kapoor</div><div style="color:var(--muted);font-size:.8rem">VP Brand, Nova</div></div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

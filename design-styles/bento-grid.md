@@ -1,10 +1,7 @@
 ---
 version: alpha
-name: "Bento Grid"
-description: >
-  Jayden Design System — Modular Info Architecture / SaaS Layout.
-  Grid-based layout with surface-2 for sub-cards within cells.
-  Apply class `bento-grid-a` on <html>.
+name: Bento Grid
+description: "Modular Info Architecture / SaaS Layout — grid-based layout with surface-2 for sub-cards within cells. surface / border / accent tokens. Apply class `bento-grid-a`, `bento-grid-b`, or `bento-grid-c` on `<html>`."
 colors:
   bg: "oklch(97% 0.004 255)"
   surface: "oklch(100% 0 0)"
@@ -14,119 +11,98 @@ colors:
   ink: "oklch(10% 0.008 255)"
   muted: "oklch(58% 0.010 255)"
   border: "oklch(88% 0.006 255)"
+  primary: "{colors.accent}"
 typography:
-  display:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "clamp(2.5rem, 6vw, 5rem)"
+  h1:
+    fontFamily: General Sans
+    fontSize: 2.5rem
     fontWeight: 700
     lineHeight: 1.05
     letterSpacing: "-0.02em"
-  h1:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "clamp(1.75rem, 4vw, 3rem)"
-    fontWeight: 600
-    lineHeight: 1.2
-  h2:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "clamp(1.35rem, 2.5vw, 2rem)"
-    fontWeight: 600
-    lineHeight: 1.3
-  body:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "0.9375rem"
-    lineHeight: 1.5
-  small:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "0.8125rem"
+  body-md:
+    fontFamily: General Sans
+    fontSize: 1rem
+    fontWeight: 400
+    lineHeight: 1.6
   eyebrow:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
-    fontSize: "0.75rem"
+    fontFamily: JetBrains Mono
+    fontSize: 0.75rem
     fontWeight: 500
     letterSpacing: "0.22em"
     textTransform: uppercase
-  mono:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
-    fontSize: "0.875rem"
 rounded:
-  sm: "8px"
-  md: "16px"
-  card-max: "20px"
-  full: "999px"
+  sm: 8px
+  md: 16px
+  lg: 20px
 spacing:
-  xs: "4px"
-  sm: "8px"
-  md: "12px"
-  lg: "20px"
-  xl: "28px"
-  2xl: "40px"
-  3xl: "56px"
+  sm: 8px
+  md: 16px
+  lg: 24px
 components:
   button-primary:
-    backgroundColor: "oklch(52% 0.22 255)"
-    color: "oklch(97% 0.004 255)"
+    backgroundColor: "{colors.primary}"
+    textColor: "#FFFFFF"
     rounded: "999px"
-    padding: 10px 20px
-    fontFamily: General Sans
-    fontWeight: 600
+    padding: 12px 24px
   button-secondary:
-    backgroundColor: "oklch(100% 0 0)"
-    color: "oklch(10% 0.008 255)"
+    backgroundColor: "{colors.bg}"
+    textColor: "{colors.ink}"
     rounded: "999px"
-    border: 1px solid oklch(88% 0.006 255)
-    padding: 10px 20px
+    padding: 12px 24px
   card:
-    backgroundColor: "oklch(100% 0 0)"
-    color: "oklch(10% 0.008 255)"
+    backgroundColor: "{colors.bg}"
     rounded: "16px"
-    padding: 20px
-    boxShadow: "0 2px 12px rgba(0,0,0,0.10)"
+    padding: 24px
 ---
 
 ## Overview
 
-The **Bento Grid** trend in the Jayden Design System. Modular Info Architecture / SaaS Layout — grid-based layout with surface-2 for sub-cards within cells.
+Modular info architecture — grid-based SaaS layouts with surface-2 for sub-cells within cards. Clean borders, structural clarity, Apple marketing warmth for lifestyle variants.
 
-Modular, structured, info-architecture. Grid-forward layout. Use `--surface` for main cells, `--surface-2` for nested sub-cards. Sharp borders define the structure. No glass.
+**Activation:** Apply class `bento-grid-a`, `bento-grid-b`, or `bento-grid-c` on `<html>`.
 
-Apply the CSS class on `<html>`. 3 variants available.
+**Tone:** Clean modular — cool electric blue, dark premium obsidian, or warm linen editorial.
 
-### Variants
-
-| Variant Class | Name | Description | Key Colors |
-|---|---|---|---|
-| `bento-grid-a` | **Clean Light** | Cool white, electric blue, Vercel/Linear energy | `--bg`: `oklch(97% 0.004 255)`, `--accent`: `oklch(52% 0.22 255)` |
-| `bento-grid-b` | **Obsidian Grid** | Dark premium product, high-contrast cells | `--bg`: `oklch(9% 0.012 255)`, `--accent`: `oklch(72% 0.17 255)` |
-| `bento-grid-c` | **Warm Linen** | Warm neutral — editorial bento, Apple warmth | `--bg`: `oklch(97% 0.006 80)`, `--accent`: `oklch(46% 0.16 30)` |
-
----
+**Class format:** `bento-grid-{variant}`
 
 ## Colors
 
-Use `--surface` for main grid cells, `--surface-2` for nested sub-cards within cells. Border defines cell boundaries.
+The YAML frontmatter represents the primary variant (`a`). This trend has 3 variants:
 
----
+| Variant | Name | Description |
+|---------|------|-------------|
+| a | Clean Light | Cool white, electric blue, Vercel/Linear energy |
+| b | Obsidian Grid | Dark premium product, high-contrast cells, Raycast energy |
+| c | Warm Linen | Warm neutral — editorial bento, Apple marketing warmth, lifestyle brands |
+
+All color values use OKLCH for perceptual uniformity. Components read semantic tokens (`--bg`, `--surface`, `--accent`, `--text`, `--muted`, `--border`) set by the active variant class.
 
 ## Typography
 
-General Sans throughout — clean, efficient, information-forward. Denser spacing for data-rich layouts.
+Fonts are provided by the shared type layer. Display type uses a fluid `clamp()` scale at runtime; the YAML shows the midpoint. Body sits at `1rem`. Mono eyebrows run uppercase with 0.22em tracking on JetBrains Mono.
 
----
+## Layout
 
-## Shapes
-
-16px card radius. 20px max. Full-pill for buttons.
-
----
+Spacing follows an 8-point grid scale (`--space-1` through `--space-8`). Radii are capped at `--radius-card-max: 20px` for non-pill elements. Layout uses CSS Grid with container queries where supported.
 
 ## Components
 
-No glass. Borders define structure. `--surface-2` for nested content within grid cells.
+Components are token-driven — they read CSS custom properties set by the active trend class. React primitives (Button, Card, Badge) are available in `components/core/` with full TypeScript definitions.
 
----
+CSS classes (`.btn`, `.card`, `.glass`) apply styles from the active theme. See `design-tokens.json` `components` for full prop specs and variant documentation.
 
 ## Do's and Don'ts
 
-- **Do** use `--surface`/`--surface-2` for cell hierarchy.
-- **Do** use `--border` for structural definition.
-- **Don't** use glass overlays on grid cells.
-- **Don't** use shadows to separate cells — use borders.
+- **Do** use `surface-2` for sub-cells within bento cards.
+- **Do** maintain consistent grid gaps with the spacing scale.
+- **Don't** use glassmorphism — bento is solid-surface.
+- **Don't** break the grid — every element aligns to it.
+
+- **Do** follow the pre-build gate in `GUIDELINES.md` before starting any design.
+- **Do** use real content — no placeholder copy ever.
+- **Don't** mix tokens from different trends or variants on the same page.
+- **Don't** use raw hex values — always reference the semantic tokens.
+
+---
+
+*Generated from `design-tokens.json`. Canonical source: `github.com/jayden2610/jayden-design-system`.*

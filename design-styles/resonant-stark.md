@@ -1,132 +1,106 @@
 ---
 version: alpha
-name: "Resonant Stark"
-description: >
-  Jayden Design System — Quiet Premium / Restrained Minimalism.
-  Extreme token restraint. Accent appears ONCE per page (or twice max).
-  4 variants. Apply class `resonant-stark-a` on <html>.
+name: Resonant Stark
+description: "Quiet Premium / Restrained Minimalism — extreme token restraint. Accent appears ONCE per page (or twice at most). 4 variants (A/B/C standard + D Studio Blush). Apply class `resonant-stark-a`, `resonant-stark-b`, `resonant-stark-c`, or `resonant-stark-d` on `<html>`."
 colors:
   bg: "oklch(98% 0.003 90)"
   ink: "oklch(10% 0.004 255)"
   muted: "oklch(55% 0.006 255)"
   border: "oklch(88% 0.006 255)"
   accent: "oklch(38% 0.18 255)"
+  primary: "{colors.accent}"
 typography:
-  display:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "clamp(3rem, 8vw, 7rem)"
-    fontWeight: 700
-    lineHeight: 1.0
-    letterSpacing: "-0.03em"
   h1:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "clamp(2rem, 4.5vw, 3.5rem)"
-    fontWeight: 600
-    lineHeight: 1.1
-  h2:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "clamp(1.5rem, 3vw, 2.25rem)"
-    fontWeight: 500
-    lineHeight: 1.2
-  body:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "1rem"
+    fontFamily: General Sans
+    fontSize: 2.5rem
+    fontWeight: 700
+    lineHeight: 1.05
+    letterSpacing: "-0.02em"
+  body-md:
+    fontFamily: General Sans
+    fontSize: 1rem
+    fontWeight: 400
     lineHeight: 1.6
-  small:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "0.875rem"
   eyebrow:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
-    fontSize: "0.75rem"
+    fontFamily: JetBrains Mono
+    fontSize: 0.75rem
     fontWeight: 500
     letterSpacing: "0.22em"
     textTransform: uppercase
-  mono:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
-    fontSize: "0.875rem"
 rounded:
-  sm: "0px"
-  md: "0px"
-  card-max: "0px"
-  full: "999px"
+  sm: 8px
+  md: 16px
+  lg: 20px
 spacing:
-  xs: "4px"
-  sm: "8px"
-  md: "16px"
-  lg: "24px"
-  xl: "48px"
-  2xl: "80px"
-  3xl: "120px"
+  sm: 8px
+  md: 16px
+  lg: 24px
 components:
   button-primary:
-    backgroundColor: "oklch(38% 0.18 255)"
-    color: "oklch(98% 0.003 90)"
+    backgroundColor: "{colors.primary}"
+    textColor: "#FFFFFF"
     rounded: "0px"
-    padding: 14px 28px
-    fontFamily: General Sans
-    fontWeight: 600
+    padding: 12px 24px
   button-secondary:
-    backgroundColor: "transparent"
-    color: "oklch(10% 0.004 255)"
+    backgroundColor: "{colors.bg}"
+    textColor: "{colors.ink}"
     rounded: "0px"
-    border: 1px solid oklch(88% 0.006 255)
-    padding: 14px 28px
+    padding: 12px 24px
   card:
-    backgroundColor: "oklch(98% 0.003 90)"
-    color: "oklch(10% 0.004 255)"
+    backgroundColor: "{colors.bg}"
     rounded: "0px"
     padding: 24px
-    border: 1px solid oklch(88% 0.006 255)
 ---
 
 ## Overview
 
-The **Resonant Stark** trend in the Jayden Design System. Quiet Premium / Restrained Minimalism — extreme token restraint. Accent appears ONCE per page (or twice max). 4 variants.
+Quiet premium / restrained minimalism — extreme token restraint. Accent appears ONCE per page (or twice at most). 0px radii, no glassmorphism, no gradients, no decoration. The space between elements does the work.
 
-Quiet premium, restrained, Swiss precision. Radical restraint. Accent appears **once per page** (or twice max). Zero decoration. Swiss precision spacing. Typography carries all hierarchy. No glass, no gradients, no shadows on cards.
+**Activation:** Apply class `resonant-stark-a`, `resonant-stark-b`, `resonant-stark-c`, or `resonant-stark-d` on `<html>`.
 
-Apply the CSS class on `<html>`. 4 variants available.
+**Tone:** Quiet premium — Swiss precision, dark luxury, organic wellness, or creative-agency confidence.
 
-### Variants
-
-| Variant Class | Name | Description | Key Colors |
-|---|---|---|---|
-| `resonant-stark-a` | **Paper + Deep Blue** | Swiss precision, trust, Stripe/healthcare energy | `--bg`: `oklch(98% 0.003 90)`, `--accent`: `oklch(38% 0.18 255)` |
-| `resonant-stark-b` | **Obsidian + Gold** | Dark luxury, premium, architectural firms | `--bg`: `oklch(8% 0.006 255)`, `--accent`: `oklch(72% 0.12 72)` |
-| `resonant-stark-c` | **Chalk + Forest** | Warm neutral + deep forest green, organic premium | `--bg`: `oklch(97% 0.005 100)`, `--accent`: `oklch(34% 0.16 155)` |
-| `resonant-stark-d` | **Studio Blush** | Unseen Studio energy — black + blush pink two-ink | `--bg`: `oklch(8% 0.004 320)`, `--accent`: `oklch(85% 0.045 350)` |
-
----
+**Class format:** `resonant-stark-{variant}`
 
 ## Colors
 
-Radical restraint. Accent appears **once per page** (or twice at most). The rest is `--bg`, `--ink`, `--muted`, and `--border`. No third color.
+The YAML frontmatter represents the primary variant (`a`). This trend has 4 variants:
 
----
+| Variant | Name | Description |
+|---------|------|-------------|
+| a | Paper + Deep Blue | Swiss precision, trust, Stripe/healthcare energy. Deep blue accent used once. |
+| b | Obsidian + Gold | Dark luxury, premium, architectural firms. Warm gold accent appears once. |
+| c | Chalk + Forest | Warm neutral + deep forest green — organic premium, wellness, sustainability |
+| d | Studio Blush | Unseen Studio energy — bold restraint, creative-agency confidence. Two-ink system: black + blush pink. |
+
+All color values use OKLCH for perceptual uniformity. Components read semantic tokens (`--bg`, `--surface`, `--accent`, `--text`, `--muted`, `--border`) set by the active variant class.
 
 ## Typography
 
-Typography carries ALL hierarchy. No boxes, no icons, no decoration. Tight letter-spacing on display sizes. Generous vertical rhythm.
+Fonts are provided by the shared type layer. Display type uses a fluid `clamp()` scale at runtime; the YAML shows the midpoint. Body sits at `1rem`. Mono eyebrows run uppercase with 0.22em tracking on JetBrains Mono.
 
----
+## Layout
 
-## Shapes
-
-**0px corners** by default. This is Swiss precision — right angles communicate restraint. Pill radius only on tags if absolutely needed.
-
----
+Spacing follows an 8-point grid scale (`--space-1` through `--space-8`). Radii are capped at `--radius-card-max: 20px` for non-pill elements. Layout uses CSS Grid with container queries where supported.
 
 ## Components
 
-No glass, no gradients, no shadows on cards. Square corners. Border-only card differentiation.
+Components are token-driven — they read CSS custom properties set by the active trend class. React primitives (Button, Card, Badge) are available in `components/core/` with full TypeScript definitions.
 
----
+CSS classes (`.btn`, `.card`, `.glass`) apply styles from the active theme. See `design-tokens.json` `components` for full prop specs and variant documentation.
 
 ## Do's and Don'ts
 
-- **Do** use accent ONCE per page (or twice at most).
-- **Do** let typography carry all hierarchy.
-- **Do** use right angles (0px radius).
-- **Don't** use glassmorphism, gradients, or shadows on cards.
-- **Don't** use more than one accent.
-- **Don't** add decoration without purpose.
+- **Do** use accent once per page — a single CTA, a single headline word.
+- **Do** let whitespace carry hierarchy — no borders, no shadows.
+- **Don't** use glassmorphism, gradients, or generic SaaS sans.
+- **Don't** add decoration that doesn't communicate.
+
+- **Do** follow the pre-build gate in `GUIDELINES.md` before starting any design.
+- **Do** use real content — no placeholder copy ever.
+- **Don't** mix tokens from different trends or variants on the same page.
+- **Don't** use raw hex values — always reference the semantic tokens.
+
+---
+
+*Generated from `design-tokens.json`. Canonical source: `github.com/jayden2610/jayden-design-system`.*

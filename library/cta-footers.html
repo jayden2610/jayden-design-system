@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" class="live-interface-a">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTA & Footer Patterns — Jayden Design System Library</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-sans);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    .theme-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:10px;padding:10px 24px;background:rgba(0,0,0,0.6);backdrop-filter:blur(12px);font-size:.8rem}
+    .theme-bar select{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:4px 12px;font-size:.75rem;cursor:pointer}
+    .pattern{padding:60px 0;border-bottom:1px solid var(--border)}
+    .pattern-label{font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:0.22em;color:var(--muted);padding:0 48px;margin-bottom:24px}
+    .container{max-width:1200px;margin:0 auto;padding:0 48px}
+    @media(max-width:768px){.container,.pattern-label{padding-left:24px;padding-right:24px}}
+  </style>
+</head>
+<body>
+  <div class="theme-bar">
+    <select onchange="document.documentElement.className=this.value">
+      <option value="live-interface-a" selected>Live Interface — Dark Emerald</option>
+      <option value="resonant-stark-b">Resonant Stark — Obsidian + Gold</option>
+      <option value="bento-grid-b">Bento Grid — Obsidian</option>
+    </select>
+    <span>CTA & Footer Patterns — UI Library</span>
+  </div>
+
+  <div style="padding-top:60px"></div>
+
+  <!-- CTA 1: Centered -->
+  <section class="pattern">
+    <div class="pattern-label">01 · Centered CTA</div>
+    <div class="container" style="text-align:center;padding:80px 0">
+      <h2 style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:var(--weight-bold);line-height:1.15;letter-spacing:-0.02em;margin-bottom:16px">Ready to ship faster?</h2>
+      <p style="color:var(--muted);font-size:1.1rem;max-width:500px;margin:0 auto 28px">Join thousands of teams building with our design system.</p>
+      <div style="display:flex;gap:12px;justify-content:center">
+        <a href="#" style="padding:14px 32px;background:var(--accent);color:var(--bg);border-radius:999px;text-decoration:none;font-weight:var(--weight-medium)">Start free trial</a>
+        <a href="#" style="padding:14px 32px;border:1px solid var(--border);border-radius:999px;text-decoration:none;color:var(--text)">View docs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA 2: Banner -->
+  <section class="pattern">
+    <div class="pattern-label">02 · Banner CTA</div>
+    <div class="container">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:40px 48px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+        <div><h3 style="font-size:1.3rem;font-weight:var(--weight-semibold);margin-bottom:6px">Get the 2026 Design Trends Report</h3><p style="color:var(--muted);font-size:.9rem">50 pages of data, examples, and predictions. Free.</p></div>
+        <a href="#" style="padding:12px 28px;background:var(--accent);color:var(--bg);border-radius:999px;text-decoration:none;font-weight:var(--weight-medium);white-space:nowrap">Download PDF</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer 1: 4-Column -->
+  <section class="pattern">
+    <div class="pattern-label">03 · 4-Column footer</div>
+    <div class="container">
+      <footer style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding:40px 0">
+        <div><div style="font-family:var(--font-display);font-size:1.2rem;font-weight:var(--weight-bold);margin-bottom:12px">Company</div><p style="color:var(--muted);font-size:.85rem;line-height:1.7">Building tools for the next generation of designers and engineers.</p></div>
+        <div><div style="font-weight:var(--weight-semibold);font-size:.85rem;margin-bottom:12px">Product</div><div style="display:flex;flex-direction:column;gap:8px"><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">Features</a><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">Pricing</a><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">Changelog</a><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">Docs</a></div></div>
+        <div><div style="font-weight:var(--weight-semibold);font-size:.85rem;margin-bottom:12px">Company</div><div style="display:flex;flex-direction:column;gap:8px"><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">About</a><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">Blog</a><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">Careers</a><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">Contact</a></div></div>
+        <div><div style="font-weight:var(--weight-semibold);font-size:.85rem;margin-bottom:12px">Legal</div><div style="display:flex;flex-direction:column;gap:8px"><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">Privacy</a><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">Terms</a><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">Security</a></div></div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- Footer 2: Minimal -->
+  <section class="pattern">
+    <div class="pattern-label">04 · Minimal footer</div>
+    <div class="container">
+      <footer style="display:flex;justify-content:space-between;align-items:center;padding:32px 0;border-top:1px solid var(--border)">
+        <div style="font-weight:var(--weight-semibold);font-size:.9rem">Company</div>
+        <div style="display:flex;gap:24px"><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">Twitter</a><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">GitHub</a><a href="#" style="color:var(--muted);text-decoration:none;font-size:.85rem">LinkedIn</a></div>
+      </footer>
+    </div>
+  </section>
+</body>
+</html>

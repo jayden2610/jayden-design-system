@@ -1,9 +1,7 @@
 ---
 version: alpha
-name: "Neon Noir"
-description: >
-  Jayden Design System — Cyberpunk / Dark Neon. Electric neon on near-black
-  backgrounds. Bloom effects, high contrast. Apply class `neon-noir-a` on <html>.
+name: Neon Noir
+description: "Cyberpunk / Dark Neon — electric neon on near-black backgrounds. Bloom effects, high contrast. Apply class `neon-noir-a`, `neon-noir-b`, or `neon-noir-c` on `<html>`."
 colors:
   bg: "oklch(5% 0.004 280)"
   surface: "oklch(8% 0.005 280)"
@@ -12,121 +10,98 @@ colors:
   neon_purple: "oklch(62% 0.24 295)"
   text: "oklch(91% 0.006 240)"
   muted: "oklch(45% 0.008 240)"
+  primary: "{colors.neon}"
 typography:
-  display:
-    fontFamily: "JetBrains Mono, General Sans, system-ui, sans-serif"
-    fontSize: "clamp(3rem, 8vw, 7rem)"
+  h1:
+    fontFamily: General Sans
+    fontSize: 2.5rem
     fontWeight: 700
     lineHeight: 1.05
     letterSpacing: "-0.02em"
-  h1:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "clamp(2.25rem, 5vw, 4rem)"
-    fontWeight: 600
-    lineHeight: 1.2
-  h2:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "clamp(1.75rem, 3.4vw, 2.75rem)"
-    fontWeight: 600
-    lineHeight: 1.2
-  body:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
-    fontSize: "1rem"
+  body-md:
+    fontFamily: JetBrains Mono
+    fontSize: 1rem
+    fontWeight: 400
     lineHeight: 1.6
-  small:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "0.875rem"
   eyebrow:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
-    fontSize: "0.75rem"
+    fontFamily: JetBrains Mono
+    fontSize: 0.75rem
     fontWeight: 500
     letterSpacing: "0.22em"
     textTransform: uppercase
-  mono:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
-    fontSize: "0.875rem"
 rounded:
-  sm: "4px"
-  md: "8px"
-  card-max: "12px"
-  full: "999px"
+  sm: 8px
+  md: 16px
+  lg: 20px
 spacing:
-  xs: "4px"
-  sm: "8px"
-  md: "16px"
-  lg: "24px"
-  xl: "32px"
-  2xl: "48px"
-  3xl: "64px"
+  sm: 8px
+  md: 16px
+  lg: 24px
 components:
   button-primary:
-    backgroundColor: "oklch(90% 0.22 155)"
-    color: "oklch(5% 0.004 280)"
+    backgroundColor: "{colors.primary}"
+    textColor: "#FFFFFF"
     rounded: "4px"
     padding: 12px 24px
-    fontFamily: JetBrains Mono, monospace
-    fontWeight: 600
   button-secondary:
-    backgroundColor: "oklch(8% 0.005 280)"
-    color: "oklch(91% 0.006 240)"
+    backgroundColor: "{colors.bg}"
+    textColor: "{colors.text}"
     rounded: "4px"
-    border: 1px solid oklch(90% 0.22 155)
     padding: 12px 24px
-    fontFamily: JetBrains Mono, monospace
   card:
-    backgroundColor: "oklch(8% 0.005 280)"
-    color: "oklch(91% 0.006 240)"
-    rounded: "8px"
+    backgroundColor: "{colors.bg}"
+    rounded: "16px"
     padding: 24px
-    border: 1px solid oklch(15% 0.008 280)
 ---
 
 ## Overview
 
-The **Neon Noir** trend in the Jayden Design System. Cyberpunk / Dark Neon — electric neon on near-black backgrounds. Bloom effects, high contrast.
+Cyberpunk dark — electric neon on near-black backgrounds. Sharp 4px radii, bloom effects, high contrast. Monospace accents and terminal-grade precision.
 
-Electric, dangerous, high-contrast. Neon colors bloom. Use `--neon`, `--neon-blue`, `--neon-purple` directly. Prefer crisp 4px radii on interactive elements. No glass, no blurred panels — sharp edges only.
+**Activation:** Apply class `neon-noir-a`, `neon-noir-b`, or `neon-noir-c` on `<html>`.
 
-Apply the CSS class on `<html>`. 3 variants available.
+**Tone:** Electric, dangerous, high-contrast — hacker terminal to underground rave.
 
-### Variants
-
-| Variant Class | Name | Description | Key Colors |
-|---|---|---|---|
-| `neon-noir-a` | **Acid Green** | Hacker terminal, electric, aggressive precision | `--neon`: `oklch(90% 0.22 155)`, `--neon-purple`: `oklch(62% 0.24 295)` |
-| `neon-noir-b` | **Blood Neon** | Red/magenta — underground rave, dangerous, high contrast | `--neon`: `oklch(65% 0.28 15)`, `--neon-purple`: `oklch(58% 0.20 295)` |
-| `neon-noir-c` | **Arctic Wire** | Cold blue/white — clean cyberpunk, near-future, Scandinavian | `--neon`: `oklch(94% 0.06 220)`, `--neon-purple`: `oklch(60% 0.14 250)` |
-
----
+**Class format:** `neon-noir-{variant}`
 
 ## Colors
 
-**Key rules:** 2–3 hues max. All color in OKLCH — never raw hex. No glass, no blurred panels — use bloom/glow JS effects for neon instead.
+The YAML frontmatter represents the primary variant (`a`). This trend has 3 variants:
 
----
+| Variant | Name | Description |
+|---------|------|-------------|
+| a | Acid Green | Hacker terminal, electric, aggressive precision |
+| b | Blood Neon | Red/magenta — underground rave, dangerous, high contrast |
+| c | Arctic Wire | Cold blue/white — clean cyberpunk, near-future, Scandinavian dark. Restrained bloom. |
+
+All color values use OKLCH for perceptual uniformity. Components read semantic tokens (`--bg`, `--surface`, `--accent`, `--text`, `--muted`, `--border`) set by the active variant class.
 
 ## Typography
 
-JetBrains Mono for display and body — the cyberpunk voice. General Sans for hierarchy where readability matters.
+Fonts are provided by the shared type layer. Display type uses a fluid `clamp()` scale at runtime; the YAML shows the midpoint. Body sits at `1rem`. Mono eyebrows run uppercase with 0.22em tracking on JetBrains Mono.
 
----
+## Layout
 
-## Shapes
-
-Sharp 4px radii on interactive elements. 8px max on cards. No pill buttons — keep it angular.
-
----
+Spacing follows an 8-point grid scale (`--space-1` through `--space-8`). Radii are capped at `--radius-card-max: 20px` for non-pill elements. Layout uses CSS Grid with container queries where supported.
 
 ## Components
 
-All token-driven. No glass, no blurred panels. Sharp edges, high contrast, neon on black.
+Components are token-driven — they read CSS custom properties set by the active trend class. React primitives (Button, Card, Badge) are available in `components/core/` with full TypeScript definitions.
 
----
+CSS classes (`.btn`, `.card`, `.glass`) apply styles from the active theme. See `design-tokens.json` `components` for full prop specs and variant documentation.
 
 ## Do's and Don'ts
 
-- **Do** apply the trend-variant class on `<html>`.
-- **Do** use JS bloom/glow effects for neon elements.
-- **Don't** use glass or blurred panels — sharp edges only.
-- **Don't** use purple-on-white SaaS gradient.
-- **Don't** use CSS-only nature/cinematic backgrounds.
+- **Do** use neon glow effects sparingly on interactive elements.
+- **Do** keep radii sharp (4px-8px) — no pill buttons.
+- **Don't** add warm ambient light unless the variant specifies it.
+- **Don't** use glassmorphism — solid surfaces only.
+
+- **Do** follow the pre-build gate in `GUIDELINES.md` before starting any design.
+- **Do** use real content — no placeholder copy ever.
+- **Don't** mix tokens from different trends or variants on the same page.
+- **Don't** use raw hex values — always reference the semantic tokens.
+
+---
+
+*Generated from `design-tokens.json`. Canonical source: `github.com/jayden2610/jayden-design-system`.*

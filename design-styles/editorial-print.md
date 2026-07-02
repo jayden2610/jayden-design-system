@@ -1,128 +1,105 @@
 ---
 version: alpha
-name: "Editorial Print"
-description: >
-  Jayden Design System — Neo-Japandi / Illustration-First. Strict 2-ink system.
-  Accent appears at full weight max twice per section.
-  Apply class `editorial-print-a` on <html>.
+name: Editorial Print
+description: "Neo-Japandi / Illustration-First — strict 2-ink system. --accent never appears at full weight more than twice per section. Apply class `editorial-print-a`, `editorial-print-b`, or `editorial-print-c` on `<html>`."
 colors:
   paper: "oklch(91% 0.028 82)"
   ink: "oklch(14% 0.006 80)"
   accent: "oklch(50% 0.18 34)"
   accent_2: "oklch(72% 0.12 76)"
   muted: "oklch(52% 0.020 72)"
+  primary: "{colors.accent}"
 typography:
-  display:
-    fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "clamp(3.5rem, 9vw, 8rem)"
+  h1:
+    fontFamily: Newsreader
+    fontSize: 2.5rem
     fontWeight: 700
     lineHeight: 1.05
     letterSpacing: "-0.02em"
-  h1:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "clamp(2rem, 4.5vw, 3.5rem)"
-    fontWeight: 600
-    lineHeight: 1.15
-  h2:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "clamp(1.5rem, 3vw, 2.25rem)"
-    fontWeight: 600
-    lineHeight: 1.2
-  body:
-    fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "1.125rem"
-    lineHeight: 1.7
-  small:
-    fontFamily: "General Sans, system-ui, sans-serif"
-    fontSize: "0.875rem"
+  body-md:
+    fontFamily: Newsreader
+    fontSize: 1rem
+    fontWeight: 400
+    lineHeight: 1.6
   eyebrow:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
-    fontSize: "0.75rem"
+    fontFamily: JetBrains Mono
+    fontSize: 0.75rem
     fontWeight: 500
     letterSpacing: "0.22em"
     textTransform: uppercase
-  mono:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
-    fontSize: "0.875rem"
 rounded:
-  sm: "4px"
-  md: "8px"
-  card-max: "12px"
-  full: "999px"
+  sm: 8px
+  md: 16px
+  lg: 20px
 spacing:
-  xs: "4px"
-  sm: "8px"
-  md: "16px"
-  lg: "24px"
-  xl: "48px"
-  2xl: "80px"
-  3xl: "120px"
+  sm: 8px
+  md: 16px
+  lg: 24px
 components:
   button-primary:
-    backgroundColor: "oklch(50% 0.18 34)"
-    color: "oklch(91% 0.028 82)"
-    rounded: "8px"
+    backgroundColor: "{colors.primary}"
+    textColor: "#FFFFFF"
+    rounded: "4px"
     padding: 12px 24px
-    fontFamily: General Sans
-    fontWeight: 600
   button-secondary:
-    backgroundColor: "oklch(91% 0.028 82)"
-    color: "oklch(14% 0.006 80)"
-    rounded: "8px"
-    border: 1px solid oklch(14% 0.006 80)
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    rounded: "4px"
     padding: 12px 24px
   card:
-    backgroundColor: "oklch(91% 0.028 82)"
-    color: "oklch(14% 0.006 80)"
-    rounded: "8px"
+    backgroundColor: "{colors.paper}"
+    rounded: "4px"
     padding: 24px
 ---
 
 ## Overview
 
-The **Editorial Print** trend in the Jayden Design System. Neo-Japandi / Illustration-First — strict 2-ink system. Accent appears at full weight max twice per section.
+Neo-Japandi / illustration-first — strict 2-ink system where accent never appears at full weight more than twice per section. Asymmetric Japanese grid, illustration carries the visual world.
 
-Neo-Japandi, 2-ink, illustration-first. Strict 2-ink system: `--paper` (background) + `--ink` (text). Accent appears at full weight **max twice per section**. Rich illustration or photography carries the visual weight. Japanese asymmetric grids.
+**Activation:** Apply class `editorial-print-a`, `editorial-print-b`, or `editorial-print-c` on `<html>`.
 
-Apply the CSS class on `<html>`. 3 variants available.
+**Tone:** Print editorial — aged paper terracotta, indigo woodblock, or lantern-lit night market.
 
-### Variants
-
-| Variant Class | Name | Description | Key Colors |
-|---|---|---|---|
-| `editorial-print-a` | **Terracotta Ukiyo** | Aged paper, warm terracotta, Neo Mirai energy | `--paper`: `oklch(91% 0.028 82)`, `--ink`: `oklch(14% 0.006 80)` |
-| `editorial-print-b` | **Indigo Woodblock** | Japanese woodblock blue, Hokusai palette | `--paper`: `oklch(94% 0.012 240)`, `--ink`: `oklch(12% 0.012 250)` |
-| `editorial-print-c` | **Night Market** | Dark editorial — lantern light on black | `--paper`: `oklch(10% 0.012 50)`, `--ink`: `oklch(94% 0.016 75)` |
-
----
+**Class format:** `editorial-print-{variant}`
 
 ## Colors
 
-Strict 2-ink system. Paper + ink. Accent used at full weight max twice per section.
+The YAML frontmatter represents the primary variant (`a`). This trend has 3 variants:
 
----
+| Variant | Name | Description |
+|---------|------|-------------|
+| a | Terracotta Ukiyo | Aged paper, warm terracotta, Neo Mirai energy |
+| b | Indigo Woodblock | Japanese woodblock blue, Hokusai palette. Cool indigo on ivory paper. |
+| c | Night Market | Dark editorial — lantern light on black, festival poster, ink-on-dark |
+
+All color values use OKLCH for perceptual uniformity. Components read semantic tokens (`--bg`, `--surface`, `--accent`, `--text`, `--muted`, `--border`) set by the active variant class.
 
 ## Typography
 
-Newsreader serif for display and body — editorial gravitas. General Sans for structure. Large display size `clamp(3.5rem, 9vw, 8rem)`.
+Fonts are provided by the shared type layer. Display type uses a fluid `clamp()` scale at runtime; the YAML shows the midpoint. Body sits at `1rem`. Mono eyebrows run uppercase with 0.22em tracking on JetBrains Mono.
 
----
+## Layout
 
-## Shapes
-
-Modest, print-inspired. 4px on interactive elements, 8px on cards. 12px max.
-
----
+Spacing follows an 8-point grid scale (`--space-1` through `--space-8`). Radii are capped at `--radius-card-max: 20px` for non-pill elements. Layout uses CSS Grid with container queries where supported.
 
 ## Components
 
-No glass, no shadows. Illustration or photography carries visual weight. Japanese asymmetric grid layouts.
+Components are token-driven — they read CSS custom properties set by the active trend class. React primitives (Button, Card, Badge) are available in `components/core/` with full TypeScript definitions.
 
----
+CSS classes (`.btn`, `.card`, `.glass`) apply styles from the active theme. See `design-tokens.json` `components` for full prop specs and variant documentation.
 
 ## Do's and Don'ts
 
-- **Do** use accent at full weight max twice per section.
-- **Do** pair with illustration or photography as the visual world.
-- **Don't** use glassmorphism — print has no glass.
-- **Don't** use more than 2 inks plus one accent.
+- **Do** use accent sparingly — twice per section at most.
+- **Do** lean on illustration, not decoration.
+- **Don't** use glassmorphism or shadows.
+- **Don't** center-align large text blocks.
+
+- **Do** follow the pre-build gate in `GUIDELINES.md` before starting any design.
+- **Do** use real content — no placeholder copy ever.
+- **Don't** mix tokens from different trends or variants on the same page.
+- **Don't** use raw hex values — always reference the semantic tokens.
+
+---
+
+*Generated from `design-tokens.json`. Canonical source: `github.com/jayden2610/jayden-design-system`.*

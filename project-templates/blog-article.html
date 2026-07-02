@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" class="narrative-motion-a">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article — Jayden Design System</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-serif,Newsreader);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+    .theme-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:10px;padding:10px 24px;background:rgba(0,0,0,0.6);backdrop-filter:blur(12px);font-size:.8rem}
+    .theme-bar select{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:4px 12px;font-size:.75rem;cursor:pointer}
+    .theme-bar span{color:rgba(255,255,255,0.6);font-size:.7rem}
+    article{max-width:720px;margin:0 auto;padding:120px 24px 80px}
+    .meta{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:0.22em;color:var(--accent);margin-bottom:24px}
+    h1{font-family:var(--font-display);font-size:clamp(2.25rem,5vw,3.5rem);font-weight:var(--weight-bold);line-height:1.15;letter-spacing:-0.02em;margin-bottom:16px}
+    .byline{color:var(--muted);font-size:1rem;margin-bottom:48px}
+    .lead{font-size:1.25rem;line-height:1.7;color:var(--ink);margin-bottom:48px;font-style:italic}
+    p{font-size:1.1rem;line-height:1.85;color:var(--ink);margin-bottom:28px}
+    h2{font-family:var(--font-display);font-size:2rem;font-weight:var(--weight-bold);line-height:1.2;margin:56px 0 20px;letter-spacing:-0.01em}
+    blockquote{border-left:3px solid var(--accent);padding:12px 0 12px 24px;margin:40px 0;color:var(--muted);font-style:italic;font-size:1.15rem;line-height:1.7}
+    figure{margin:48px 0}
+    figure .img{aspect-ratio:16/9;background:var(--accent);opacity:.12;border-radius:8px}
+    figure figcaption{font-size:.85rem;color:var(--muted);margin-top:8px;text-align:center}
+    @media(max-width:768px){article{padding:100px 20px 60px}}
+  </style>
+</head>
+<body>
+  <div class="theme-bar">
+    <select onchange="document.documentElement.className=this.value">
+      <option value="narrative-motion-a" selected>Narrative Motion — Terracotta Press</option>
+      <option value="narrative-motion-b">Narrative Motion — Obsidian Broadsheet</option>
+      <option value="editorial-print-b">Editorial Print — Indigo Woodblock</option>
+    </select>
+    <span>Article Template — Jayden Design System</span>
+  </div>
+
+  <article>
+    <div class="meta">Design · 8 min read</div>
+    <h1>The quiet power of editorial design in a scroll-driven web.</h1>
+    <div class="byline">By Jayden · July 2026</div>
+
+    <p class="lead">Most of the web is shouting. Editorial design offers a different path — one where restraint, rhythm, and the space between elements does more work than any animation ever could.</p>
+
+    <p>The best editorial experiences on the web don't feel designed. They feel inevitable — as if the content arranged itself. This is the hardest thing to achieve, and it's what separates great editorial design from everything else.</p>
+
+    <p>When you strip away the gradients, the glass cards, the animated counters, and the three-column feature grids, what's left? Content. And content, well-set, needs almost nothing else.</p>
+
+    <figure><div class="img"></div><figcaption>Typography as the primary visual language — no decoration needed.</figcaption></figure>
+
+    <h2>The rhythm of reading</h2>
+
+    <p>Reading is a physical act. Your eyes move across lines, down the page, through sections. Good editorial design respects this rhythm. It doesn't interrupt with pop-ups, it doesn't distract with sidebars, and it certainly doesn't animate text in from the left while you're trying to parse a sentence.</p>
+
+    <p>The measure (line length) matters. Leading (line height) matters. The relationship between headline scale and body size matters. These aren't cosmetic decisions — they're readability decisions that determine whether someone finishes your article or bounces after the first paragraph.</p>
+
+    <blockquote>"Typography is the craft of endowing human language with a durable visual form." — Robert Bringhurst</blockquote>
+
+    <p>Durable. That's the word. Great editorial design lasts. It isn't chasing a trend or mimicking whatever SaaS landing page shipped last week. It's built on centuries of print tradition, adapted for screens with the same care.</p>
+
+    <h2>Motion that means something</h2>
+
+    <p>Scroll-driven animation in editorial contexts works when it reveals — when new information enters at the moment it becomes relevant. It fails when it decorates. A paragraph that fades in because the scroll position hit a threshold is motion for its own sake. A chart that builds itself as you reach the data it visualizes is motion with purpose.</p>
+
+    <p>The distinction is simple: if removing the animation makes the content harder to understand, keep it. If the content reads fine without it, the animation is decoration, and decoration has no place in editorial design.</p>
+  </article>
+</body>
+</html>

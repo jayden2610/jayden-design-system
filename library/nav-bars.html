@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class="resonant-stark-a">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation Patterns — Jayden Design System Library</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+    .theme-bar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:10px;padding:10px 24px;background:rgba(0,0,0,0.6);backdrop-filter:blur(12px);font-size:.8rem}
+    .theme-bar select{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:4px 12px;font-size:.75rem;cursor:pointer}
+    .pattern{padding:40px 0;border-bottom:1px solid var(--border)}
+    .pattern-label{font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:0.22em;color:var(--muted);padding:0 48px;margin-bottom:16px}
+    .container{max-width:1200px;margin:0 auto;padding:0 48px}
+    nav{display:flex;align-items:center;padding:16px 24px;border:1px solid var(--border);border-radius:12px}
+    nav .logo{font-family:var(--font-display);font-weight:var(--weight-bold);font-size:1.1rem;margin-right:auto}
+    nav .links{display:flex;gap:24px;list-style:none;align-items:center}
+    nav .links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s}
+    nav .links a:hover{color:var(--ink)}
+    nav .cta{padding:8px 18px;background:var(--accent);color:var(--bg);border-radius:999px;text-decoration:none;font-size:.85rem;font-weight:var(--weight-medium)}
+    @media(max-width:768px){.container,.pattern-label{padding-left:24px;padding-right:24px}nav .links{gap:16px}}
+  </style>
+</head>
+<body>
+  <div class="theme-bar">
+    <select onchange="document.documentElement.className=this.value">
+      <option value="resonant-stark-a" selected>Resonant Stark — Paper + Blue</option>
+      <option value="resonant-stark-b">Resonant Stark — Obsidian + Gold</option>
+      <option value="live-interface-a">Live Interface — Dark Emerald</option>
+    </select>
+    <span>Navigation Patterns — UI Library</span>
+  </div>
+
+  <div style="padding-top:60px"></div>
+
+  <!-- Nav 1: Logo left, links center, CTA right -->
+  <section class="pattern">
+    <div class="pattern-label">01 · Standard nav (logo left · links center · CTA right)</div>
+    <div class="container">
+      <nav>
+        <div class="logo">Brand</div>
+        <ul class="links"><li><a href="#">Product</a></li><li><a href="#">Pricing</a></li><li><a href="#">Docs</a></li><li><a href="#">Blog</a></li></ul>
+        <a href="#" class="cta">Sign in</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Nav 2: Logo left, links right -->
+  <section class="pattern">
+    <div class="pattern-label">02 · Logo left · links right</div>
+    <div class="container">
+      <nav>
+        <div class="logo">Brand</div>
+        <ul class="links" style="margin-right:0"><li><a href="#">Work</a></li><li><a href="#">About</a></li><li><a href="#">Services</a></li><li><a href="#">Journal</a></li><li><a href="#" style="color:var(--ink)">Contact</a></li></ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Nav 3: Centered logo -->
+  <section class="pattern">
+    <div class="pattern-label">03 · Centered logo · links split</div>
+    <div class="container">
+      <nav style="justify-content:center;gap:48px">
+        <ul class="links" style="margin-right:0"><li><a href="#">Shop</a></li><li><a href="#">About</a></li></ul>
+        <div class="logo" style="margin-right:0">Brand</div>
+        <ul class="links" style="margin-right:0"><li><a href="#">Journal</a></li><li><a href="#">Contact</a></li></ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Nav 4: Glass floating nav -->
+  <section class="pattern">
+    <div class="pattern-label">04 · Glass floating nav (Liquid Glass / Open World Ambient)</div>
+    <div class="container">
+      <nav style="background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.12);border-radius:999px;padding:12px 24px">
+        <div class="logo">Brand</div>
+        <ul class="links"><li><a href="#">Product</a></li><li><a href="#">Pricing</a></li><li><a href="#">Docs</a></li></ul>
+        <a href="#" class="cta">Get started</a>
+      </nav>
+    </div>
+  </section>
+</body>
+</html>

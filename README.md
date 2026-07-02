@@ -165,10 +165,25 @@ to see *what a finished product looks like*, look at Tymos.
   color + glass rules (mirrors canonical repo).
 - `SKILL.md` — Agent Skills wrapper for use in Claude Code. Includes the full project brief workflow.
 
-**Project templates** (`project-templates/`) — low-token HTML layout sketches for quick previews:
+**Project templates** (`project-templates/`) — full page templates with theme switchers:
   - `landing.html` — hero + features + testimonials + CTA (3 theme moods)
   - `dashboard.html` — sidebar + stats + chart + table (3 theme moods)
   - `saas-product.html` — nav + hero + features + pricing (3 theme moods)
+  - `portfolio.html` — creative portfolio (4 theme moods)
+  - `pricing.html` — pricing comparison + FAQ (3 theme moods)
+  - `blog-article.html` — editorial article layout (3 theme moods)
+
+**DESIGN.md specs** (`design-styles/`) — one per trend, importable into Google Stitch and Claude Design:
+  - `spatial-presence.md` · `liquid-glass.md` · `neon-noir.md` · `narrative-motion.md`
+  - `live-interface.md` · `open-world-ambient.md` · `editorial-print.md`
+  - `bento-grid.md` · `resonant-stark.md`
+  - All 9 files pass `npx @google/design.md lint` with zero errors.
+
+**UI Pattern Library** (`library/`) — reusable, token-driven UI patterns with theme switchers:
+  - `hero-sections.html` — 4 hero layouts (centered, split, editorial, minimal)
+  - `card-patterns.html` — 4 card layouts (features, image cards, stats, testimonials)
+  - `nav-bars.html` — 4 nav patterns (standard, right, centered, glass floating)
+  - `cta-footers.html` — 2 CTAs + 2 footer patterns
 
 **Tokens** (`tokens/`)
 - `index.css` → `base.css` + `trends/*.css` — the 9 trends × 3 OKLCH variants (canonical).
